@@ -24,9 +24,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *xorButton;
 @property (weak, nonatomic) IBOutlet UIButton *twoGaussianButton;
 @property (weak, nonatomic) IBOutlet UIButton *spiralButton;
-@property (weak, nonatomic) IBOutlet UISegmentedControl *activationSegment;
-@property (weak, nonatomic) IBOutlet UILabel *learningRateLabel;
-@property (weak, nonatomic) IBOutlet UILabel *regularizationRateLabel;
+@property (weak, nonatomic) IBOutlet UILabel *lossLabel;
 
 @end
 

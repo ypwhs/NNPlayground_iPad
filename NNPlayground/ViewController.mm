@@ -7,6 +7,7 @@
 //
 
 #import "ViewController.h"
+#import "TableViewController.h"
 
 using namespace std;
 
@@ -107,9 +108,8 @@ NSLock * networkLock = [[NSLock alloc] init];
 //    UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil);
     
     delete oldNetwork;
-    toShow = [NSString stringWithFormat:@"loss:%.3f,Epoch:%d", loss/DATA_NUM, epoch];
-    _outputLabel.text = toShow;
-    
+    [_outputLabel setText:[NSString stringWithFormat:@"Epoch:%d", epoch]];
+    [_lossLabel setText:[NSString stringWithFormat:@"loss:%.3f", loss/DATA_NUM]];
 }
 
 //**************************** Inputs ***************************
@@ -192,35 +192,6 @@ void dataset_spiral(){
     _myswitch.on = false;
     always = false;
     [self resetNetwork];
-}
-
-- (IBAction)chooseActivation:(UISegmentedControl *)sender {
-    activation = (ActivationFunction)sender.selectedSegmentIndex;
-    [self reset];
-}
-- (IBAction)chooseRegularization:(UISegmentedControl *)sender {
-    regularization = (RegularizationFunction)sender.selectedSegmentIndex;
-    [self reset];
-}
-
-- (IBAction)changeLearningRate:(UISlider *)sender {
-    learningRate = pow(10, sender.value);
-    if(learningRate > 9.5){
-        _learningRateLabel.text = @"10";
-    }else{
-        _learningRateLabel.text = [NSString stringWithFormat:@"%.1G", learningRate];
-    }
-}
-- (IBAction)changeRegularizationRate:(UISlider *)sender {
-    regularizationRate = pow(10, sender.value);
-    if(regularizationRate < 0.001){
-        regularizationRate = 0;
-    }
-    if(regularizationRate > 9.5){
-        _regularizationRateLabel.text = @"10";
-    }else{
-        _regularizationRateLabel.text = [NSString stringWithFormat:@"%.1G", regularizationRate];
-    }
 }
 
 - (IBAction)speedup:(UISwitch *)sender {
@@ -332,15 +303,14 @@ vector<UIStepper *> steppers;
     (*network->network[layers - 1])[0]->initNodeLayer(frame);   //将heatmap的frame设置到网络的输出结点
     
     //计算各个坐标
-    CGFloat margin = _heatMap.frame.origin.y;   //将heatmap的y坐标用于第一个结点的x,y坐标
-    CGFloat x = margin / 2;
-    CGFloat y = margin;
+    CGFloat x = 44;
+    CGFloat y = 160;
     
-    CGFloat width = frame.origin.x - margin;
+    CGFloat width = frame.origin.x - x;
     width /= layers - 1;    //两个结点的x坐标差
     
-//    CGFloat height = self.view.frame.size.height - margin;
-    CGFloat height = _activationSegment.frame.origin.y - margin;
+    CGFloat height = self.view.frame.size.height - y;
+//    CGFloat height = _activationSegment.frame.origin.y - margin;
     height /= 8;
     
     CGFloat ndoeWidth = height - 5*screenScale;
@@ -429,13 +399,14 @@ double lastEpochTime = [NSDate date].timeIntervalSince1970;
     speed = 1.0/(now - lastEpochTime);
     lastEpochTime = now;
     
-    toShow = [NSString stringWithFormat:@"loss:%.3f,Epoch:%d", loss/DATA_NUM/batch, epoch];
-    fpsString = [NSString stringWithFormat:@"fps:%d", speed];
+//    toShow = [NSString stringWithFormat:@"loss:%.3f,Epoch:%d", loss/DATA_NUM/batch, epoch];
+//    fpsString = [NSString stringWithFormat:@"fps:%d", speed];
     
     [self getHeatData];
     [self ui:^{
-        _outputLabel.text = toShow;
-        _fpsLabel.text = fpsString;
+        [_outputLabel setText:[NSString stringWithFormat:@"Epoch:%d", epoch]];
+        [_lossLabel setText:[NSString stringWithFormat:@"loss:%.3f", loss/DATA_NUM/epoch]];
+        [_fpsLabel setText:[NSString stringWithFormat:@"fps:%d", speed]];
     }];
 }
 
@@ -564,6 +535,108 @@ vector<CALayer *> shadows;
     [self setShadow:_xorButton selected:dataset == Xor];
     [self setShadow:_twoGaussianButton selected:dataset == TwoGaussian];
     [self setShadow:_spiralButton selected:dataset == Spiral];
+}
+
+
+- (IBAction)changeActivation:(UIButton *)sender {
+    NSMutableArray * data = [[NSMutableArray alloc]init];
+    [data addObject:@"ReLU"];
+    [data addObject:@"Tanh"];
+    [data addObject:@"Sigmoid"];
+    [data addObject:@"Linear"];
+    
+    TableViewController * tv = [[TableViewController alloc] init];
+    [tv initWithData:data
+           selection:activation
+              sender:sender
+            selected:^(int index) {
+                activation = (ActivationFunction)index;
+                [self reset];
+                [sender setTitle:data[index] forState:UIControlStateNormal];
+                [tv dismissViewControllerAnimated:NO completion:nil];
+            }
+     ];
+    
+    [self presentViewController:tv animated:YES completion:nil];
+}
+
+int lastLearningRateSelection = 6;
+- (IBAction)changeLearningRate:(UIButton *)sender {
+    NSMutableArray * data = [[NSMutableArray alloc]init];
+    [data addObject:@"0.00001"];
+    [data addObject:@"0.0001"];
+    [data addObject:@"0.001"];
+    [data addObject:@"0.003"];
+    [data addObject:@"0.01"];
+    [data addObject:@"0.03"];
+    [data addObject:@"0.1"];
+    [data addObject:@"0.3"];
+    [data addObject:@"1"];
+    [data addObject:@"3"];
+    [data addObject:@"10"];
+    
+    TableViewController * tv = [[TableViewController alloc] init];
+    [tv initWithData:data
+           selection:lastLearningRateSelection
+              sender:sender
+            selected:^(int index) {
+                lastLearningRateSelection = index;
+                learningRate = [(NSString *)data[index] floatValue];
+                [sender setTitle:data[index] forState:UIControlStateNormal];
+                [tv dismissViewControllerAnimated:NO completion:nil];
+            }
+     ];
+    
+    [self presentViewController:tv animated:YES completion:nil];
+}
+
+- (IBAction)changeRegularization:(UIButton *)sender {
+    NSMutableArray * data = [[NSMutableArray alloc]init];
+    [data addObject:@"None"];
+    [data addObject:@"L1"];
+    [data addObject:@"L2"];
+    
+    TableViewController * tv = [[TableViewController alloc] init];
+    [tv initWithData:data
+           selection:regularization
+              sender:sender
+            selected:^(int index) {
+                regularization = (RegularizationFunction)index;
+                [sender setTitle:data[index] forState:UIControlStateNormal];
+                [tv dismissViewControllerAnimated:NO completion:nil];
+            }
+     ];
+    
+    [self presentViewController:tv animated:YES completion:nil];
+}
+
+int lastRegularizationRateSelection = 0;
+- (IBAction)changeRegularizationRate:(UIButton *)sender {
+    NSMutableArray * data = [[NSMutableArray alloc]init];
+    [data addObject:@"0"];
+    [data addObject:@"0.001"];
+    [data addObject:@"0.003"];
+    [data addObject:@"0.01"];
+    [data addObject:@"0.03"];
+    [data addObject:@"0.1"];
+    [data addObject:@"0.3"];
+    [data addObject:@"1"];
+    [data addObject:@"3"];
+    [data addObject:@"10"];
+    
+    TableViewController * tv = [[TableViewController alloc] init];
+    [tv initWithData:data
+           selection:lastRegularizationRateSelection
+              sender:sender
+            selected:^(int index) {
+                lastRegularizationRateSelection = index;
+                regularizationRate = [(NSString *)data[index] floatValue];
+                [sender setTitle:data[index] forState:UIControlStateNormal];
+                [tv dismissViewControllerAnimated:NO completion:nil];
+            }
+     ];
+    
+    [self presentViewController:tv animated:YES completion:nil];
 }
 
 - (void)viewDidAppear:(BOOL)animated{
