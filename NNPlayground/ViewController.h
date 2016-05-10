@@ -25,6 +25,8 @@
 @property (weak, nonatomic) IBOutlet UIButton *twoGaussianButton;
 @property (weak, nonatomic) IBOutlet UIButton *spiralButton;
 @property (weak, nonatomic) IBOutlet UILabel *lossLabel;
+@property (weak, nonatomic) IBOutlet UILabel *ratioOfTrainingDataLabel;
+@property (weak, nonatomic) IBOutlet UILabel *noiseLabel;
 
 @end
 

@@ -259,6 +259,36 @@
                                     <constraint firstAttribute="height" constant="1" id="HZP-pr-rKW"/>
                                 </constraints>
                             </view>
+                            <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="5" minValue="1" maxValue="9" translatesAutoresizingMaskIntoConstraints="NO" id="LXX-V5-XrR">
+                                <rect key="frame" x="786" y="529" width="225" height="31"/>
+                                <color key="tintColor" red="0.094117647058823528" green="0.23921568627450979" blue="0.30588235294117649" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="minimumTrackTintColor" red="0.094117647060000004" green="0.23921568630000001" blue="0.30588235289999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="thumbTintColor" red="0.094117647060000004" green="0.23921568630000001" blue="0.30588235289999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <connections>
+                                    <action selector="changeratioOfTrainingData:" destination="BYZ-38-t0r" eventType="valueChanged" id="KOl-wL-Xqk"/>
+                                </connections>
+                            </slider>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="训练数据百分比：50%" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="At0-oX-CpA">
+                                <rect key="frame" x="788" y="500" width="216" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="10" translatesAutoresizingMaskIntoConstraints="NO" id="Ojs-yn-K31">
+                                <rect key="frame" x="786" y="597" width="225" height="31"/>
+                                <color key="tintColor" red="0.094117647060000004" green="0.23921568630000001" blue="0.30588235289999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="minimumTrackTintColor" red="0.094117647060000004" green="0.23921568630000001" blue="0.30588235289999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="thumbTintColor" red="0.094117647060000004" green="0.23921568630000001" blue="0.30588235289999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <connections>
+                                    <action selector="changeNoise:" destination="BYZ-38-t0r" eventType="valueChanged" id="lTF-Qf-pHi"/>
+                                </connections>
+                            </slider>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="噪声：0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AiM-S9-yWL">
+                                <rect key="frame" x="788" y="567" width="216" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -320,7 +350,9 @@
                         <outlet property="heatMap" destination="zie-PW-5as" id="EUz-mc-KX6"/>
                         <outlet property="lossLabel" destination="nbw-rS-l0b" id="BMb-Yu-5jI"/>
                         <outlet property="myswitch" destination="DZR-z9-Peg" id="LpM-Nh-Ozu"/>
+                        <outlet property="noiseLabel" destination="AiM-S9-yWL" id="ML4-EQ-ov0"/>
                         <outlet property="outputLabel" destination="WYA-1I-afQ" id="YF7-wc-tbU"/>
+                        <outlet property="ratioOfTrainingDataLabel" destination="At0-oX-CpA" id="OzQ-xP-ClK"/>
                         <outlet property="speedupswitch" destination="YZb-u3-eD2" id="t7J-vd-qVW"/>
                         <outlet property="spiralButton" destination="vo3-gB-Jzl" id="qPl-z8-Jod"/>
                         <outlet property="twoGaussianButton" destination="pgr-RR-QPv" id="PsZ-jq-Evu"/>
