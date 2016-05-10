@@ -96,7 +96,7 @@ void Node::initNodeLayer(CGRect frame){
     //阴影
     shadowLayer.frame = frame;
     shadowLayer.cornerRadius = 5;
-    shadowLayer.shadowOffset = CGSizeMake(0, 3);
+    shadowLayer.shadowOffset = CGSizeMake(3, 3);
     shadowLayer.shadowColor = [UIColor blackColor].CGColor;
     shadowLayer.shadowRadius = 5.0;
     shadowLayer.shadowOpacity = 0.3;

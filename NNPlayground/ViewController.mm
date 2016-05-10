@@ -118,6 +118,9 @@ double inputs[] = {1, 1};
 double * x1 = new double[DATA_NUM];
 double * x2 = new double[DATA_NUM];
 double * y = new double[DATA_NUM];
+
+
+
 #define π 3.1415926
 
 void dataset_circle(){
@@ -405,7 +408,7 @@ double lastEpochTime = [NSDate date].timeIntervalSince1970;
     [self getHeatData];
     [self ui:^{
         [_outputLabel setText:[NSString stringWithFormat:@"Epoch:%d", epoch]];
-        [_lossLabel setText:[NSString stringWithFormat:@"loss:%.3f", loss/DATA_NUM/epoch]];
+        [_lossLabel setText:[NSString stringWithFormat:@"loss:%.3f", loss/DATA_NUM/batch]];
         [_fpsLabel setText:[NSString stringWithFormat:@"fps:%d", speed]];
     }];
 }
@@ -441,7 +444,7 @@ CGFloat screenScale = [UIScreen mainScreen].scale;
 
 }
 
-MBProgressHUD *hud;
+MBProgressHUD *hud = [MBProgressHUD alloc];
 
 - (void)imageSavedToPhotosAlbum:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo{
     NSString *message = @"";
@@ -461,24 +464,40 @@ MBProgressHUD *hud;
 
 - (IBAction)longpressSavePhoto:(UILongPressGestureRecognizer *)sender {
     if(sender.state != UIGestureRecognizerStateBegan)return;
-    UIAlertController * alert = [UIAlertController alertControllerWithTitle:@"保存到相册" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
-    UIAlertAction * cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-        printf("cancel\n");
-    }];
-    UIAlertAction * ok = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-        hud.mode = MBProgressHUDModeAnnularDeterminate;
-        hud.label.text = @"生成图像中";
-        [self xiancheng:^{
-            [self generateBigOutputImage];
-            UIImageWriteToSavedPhotosAlbum(bigOutputImage, self, @selector(imageSavedToPhotosAlbum:didFinishSavingWithError:contextInfo:), nil);
-        }];
-    }];
+    UIAlertController * alert =
+    [UIAlertController alertControllerWithTitle:@"保存到相册"
+                                        message:nil
+                                 preferredStyle:UIAlertControllerStyleActionSheet];
+
+    UIAlertAction * cancel =
+    [UIAlertAction actionWithTitle:@"取消"
+                             style:UIAlertActionStyleDefault
+                           handler:nil];
+    
+    UIAlertAction * ok =
+    [UIAlertAction actionWithTitle:@"确定"
+                             style:UIAlertActionStyleDefault
+                           handler:^(UIAlertAction * _Nonnull action) {
+                               hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+                               hud.mode = MBProgressHUDModeAnnularDeterminate;
+                               hud.label.text = @"生成图像中";
+                               [self xiancheng:^{
+                                   [self generateBigOutputImage];
+                                   UIImageWriteToSavedPhotosAlbum(bigOutputImage, self, @selector(imageSavedToPhotosAlbum:didFinishSavingWithError:contextInfo:), nil);
+                               }];
+                           }];
+
     [alert addAction:cancel];
     [alert addAction:ok];
-    [self presentViewController:alert animated:YES completion:^(){
-        printf("alert\n");
-    }];
+    
+    alert.view.backgroundColor = [UIColor whiteColor];
+    
+    alert.modalPresentationStyle = UIModalPresentationPopover;
+    alert.popoverPresentationController.sourceRect = sender.view.bounds;
+    alert.popoverPresentationController.sourceView = sender.view;
+    alert.popoverPresentationController.permittedArrowDirections = UIPopoverArrowDirectionAny;
+    
+    [self presentViewController:alert animated:YES completion:nil];
 }
 
 enum Dataset{Circle, Xor, TwoGaussian, Spiral};
@@ -513,7 +532,7 @@ vector<CALayer *> shadows;
         CALayer *shadowLayer = [[CALayer alloc] init];
         shadowLayer.frame = view.frame;
         shadowLayer.cornerRadius = 5;
-        shadowLayer.shadowOffset = CGSizeMake(0, 3);
+        shadowLayer.shadowOffset = CGSizeMake(3, 3);
         shadowLayer.shadowColor = [UIColor blackColor].CGColor;
         shadowLayer.shadowRadius = 5.0;
         shadowLayer.shadowOpacity = 0.3;
@@ -522,7 +541,7 @@ vector<CALayer *> shadows;
         shadows.push_back(shadowLayer);
         view.alpha = 1;
     }else{
-        view.alpha = 0.3;
+        view.alpha = 0.2;
     }
 }
 
