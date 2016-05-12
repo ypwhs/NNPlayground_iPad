@@ -94,8 +94,26 @@ NSLock * networkLock = [[NSLock alloc] init];
     
     [networkLock lock];
     //计算loss
-    //TO DO
+    double loss = 0;
+    for (int i = 0; i < testNum; i++) {
+        inputs[0] = testx1[i];
+        inputs[1] = testx2[i];
+        double output = network->forwardProp(inputs, 2);
+        loss += 0.5 * pow(output - testy[i], 2);
+    }
+    testLoss = loss/testNum;
+    
+    loss = 0;
+    for (int i = 0; i < trainNum; i++) {
+        inputs[0] = trainx1[i];
+        inputs[1] = trainx2[i];
+        double output = network->forwardProp(inputs, 2);
+        loss += 0.5 * pow(output - trainy[i], 2);
+    }
+    trainLoss = loss/testNum;
+    
     [networkLock unlock];
+    
     [_heatMap setData:trainx1 x2:trainx2 y:trainy size:trainNum];
     
     //保存数据点截图
@@ -492,12 +510,10 @@ int epoch = 0;
 int lastEpoch = 0;
 int speed = 0;
 double lastEpochTime = [NSDate date].timeIntervalSince1970;
-double trainloss = 0, testLoss = 0;
-double lasstrainloss = 0;
+double trainLoss = 0, testLoss = 0;
 - (void)onestep{
     [networkLock lock];
     
-    //进行batch轮训练
     double loss = 0;
     for (int i = 0; i < testNum; i++) {
         inputs[0] = testx1[i];
@@ -509,6 +525,7 @@ double lasstrainloss = 0;
     
     loss = 0;
     int trainEpoch = 0;
+    //进行trainBatch轮训练
     for(int n = 0; n < trainBatch; n++){
         for (int i = 0; i < trainNum; i++) {
             inputs[0] = trainx1[i];
@@ -523,9 +540,9 @@ double lasstrainloss = 0;
         }
     }
     epoch += trainBatch;
-    trainloss = loss/trainNum/trainBatch;
+    trainLoss = loss/trainNum/trainBatch;
     
-    double tmp1 = trainloss, tmp2 = testLoss;
+    double tmp1 = trainLoss, tmp2 = testLoss;
     [self ui:^{
         [_lossView addLoss:tmp1 b:tmp2];
     }];
@@ -542,11 +559,13 @@ double lasstrainloss = 0;
 - (void)updateLabel{
     [self ui:^{
         [_outputLabel setText:[NSString stringWithFormat:@"训练次数:%d", epoch]];
-        [_lossLabel setText:[NSString stringWithFormat:@"训练误差:%.3f\n测试误差%.3f", trainloss, testLoss]];
+        NSMutableAttributedString * at = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"训练误差:%.3f\n测试误差:%.3f", trainLoss, testLoss]];
+        [at addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithWhite:0 alpha:0.2] range:NSMakeRange(0, 11)];
+        [_lossLabel setAttributedText:at];
         [_fpsLabel setText:[NSString stringWithFormat:@"fps:%d", speed]];
-        [_ratioOfTrainingDataLabel setText:[NSString stringWithFormat:@"训练数据\n百分比：%d%%", (int)(ratioOfTrainingData*100)]];
-        [_noiseLabel setText:[NSString stringWithFormat:@"噪声：%d", (int)(noise*100)]];
-        [_batchLabel setText:[NSString stringWithFormat:@"批量大小：%d", (int)(batch)]];
+        [_ratioOfTrainingDataLabel setText:[NSString stringWithFormat:@"训练数据\n百分比:%d%%", (int)(ratioOfTrainingData*100)]];
+        [_noiseLabel setText:[NSString stringWithFormat:@"噪声:%d", (int)(noise*100)]];
+        [_batchLabel setText:[NSString stringWithFormat:@"批量大小:%d", (int)(batch)]];
     }];
 }
 

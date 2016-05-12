@@ -156,10 +156,17 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.5" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="loss: 0.5678" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nbw-rS-l0b">
-                                <rect key="frame" x="901" y="149" width="87" height="19"/>
-                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="16"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nbw-rS-l0b">
+                                <rect key="frame" x="788" y="149" width="200" height="19"/>
+                                <attributedString key="attributedText">
+                                    <fragment content="loss: 0.5678">
+                                        <attributes>
+                                            <color key="NSColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <font key="NSFont" size="16" name="HelveticaNeue"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                </attributedString>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="70V-05-psM">
@@ -257,11 +264,11 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oBT-7m-hRJ" customClass="LossView" customModule="NNPlayground" customModuleProvider="target">
-                                <rect key="frame" x="788" y="176" width="200" height="113"/>
-                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.029999999999999999" colorSpace="calibratedRGB"/>
+                                <rect key="frame" x="788" y="176" width="200" height="85.5"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="200" id="HSY-WR-Lh5"/>
-                                    <constraint firstAttribute="width" secondItem="oBT-7m-hRJ" secondAttribute="height" multiplier="16:9" id="okk-al-4h0"/>
+                                    <constraint firstAttribute="width" secondItem="oBT-7m-hRJ" secondAttribute="height" multiplier="21:9" id="okk-al-4h0"/>
                                 </constraints>
                             </view>
                             <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="10" minValue="1" maxValue="30" translatesAutoresizingMaskIntoConstraints="NO" id="YFe-uw-n62">
@@ -280,7 +287,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zie-PW-5as" customClass="HeatMapView" customModule="NNPlayground" customModuleProvider="target">
-                                <rect key="frame" x="788" y="297" width="200" height="200"/>
+                                <rect key="frame" x="788" y="269.5" width="200" height="200"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="fps:0" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="J6l-2R-oE7">
                                         <rect key="frame" x="122" y="0.0" width="70" height="21"/>
@@ -402,6 +409,7 @@
                             <constraint firstItem="At0-oX-CpA" firstAttribute="trailing" secondItem="vo3-gB-Jzl" secondAttribute="trailing" id="w2D-Kp-k8h"/>
                             <constraint firstItem="Ojs-yn-K31" firstAttribute="top" secondItem="AiM-S9-yWL" secondAttribute="bottom" constant="8" id="w4B-13-VeC"/>
                             <constraint firstItem="ZpZ-vb-pzA" firstAttribute="leading" secondItem="fe7-hC-kny" secondAttribute="leading" id="yQw-d3-Vui"/>
+                            <constraint firstItem="nbw-rS-l0b" firstAttribute="width" secondItem="oBT-7m-hRJ" secondAttribute="width" id="yuX-qH-4bK"/>
                             <constraint firstItem="WYA-1I-afQ" firstAttribute="centerY" secondItem="DZR-z9-Peg" secondAttribute="centerY" id="zp0-Ji-1by"/>
                         </constraints>
                     </view>
