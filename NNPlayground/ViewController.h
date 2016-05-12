@@ -28,6 +28,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *ratioOfTrainingDataLabel;
 @property (weak, nonatomic) IBOutlet UILabel *noiseLabel;
 @property (weak, nonatomic) IBOutlet LossView *lossView;
+@property (weak, nonatomic) IBOutlet UILabel *batchLabel;
+@property (weak, nonatomic) IBOutlet AddButton *addLayer;
 
 @end
 

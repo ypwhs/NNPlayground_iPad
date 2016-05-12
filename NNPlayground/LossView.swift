@@ -17,12 +17,18 @@ class LossView: UIView {
             return
         }
         let context = UIGraphicsGetCurrentContext();
-        var max:CGFloat = 0;
+        var max:CGFloat = 0, min:CGFloat = train[0];
         for d in train{
             if d > max{
-                max = d;
+                max = d
+            }
+            if d < min{
+                min = d
             }
         }
+        min -= 0.02
+        let delta = max - min
+        
         let width = rect.width
         let height = rect.height
         let n = train.count
@@ -31,7 +37,7 @@ class LossView: UIView {
         UIColor.blackColor().setStroke()
         var trainpoints = [CGPoint]()
         for i in 0..<n{
-            trainpoints.append(CGPointMake(width*CGFloat(i)/CGFloat(n-1), (1 - train[i] / max) * height))
+            trainpoints.append(CGPointMake(width*CGFloat(i)/CGFloat(n-1), (1 - (train[i] - min) / delta) * height))
         }
         CGContextAddLines(context, trainpoints, trainpoints.count)
         CGContextDrawPath(context, .Stroke)
@@ -39,7 +45,7 @@ class LossView: UIView {
         UIColor(white: 0, alpha: 0.2).setStroke()
         var testpoints = [CGPoint]()
         for i in 0..<n{
-            testpoints.append(CGPointMake(width*CGFloat(i)/CGFloat(n-1), (1 - test[i] / max) * height))
+            testpoints.append(CGPointMake(width*CGFloat(i)/CGFloat(n-1), (1 - (test[i] - min) / delta) * height))
         }
         CGContextAddLines(context, testpoints, testpoints.count)
         CGContextDrawPath(context, .Stroke)

@@ -9,9 +9,20 @@
 /* Begin PBXBuildFile section */
 		A10863571CE05BB900679479 /* TableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A10863551CE05BB900679479 /* TableViewController.m */; };
 		A10863581CE05BB900679479 /* TableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A10863561CE05BB900679479 /* TableViewController.xib */; };
+		A10E74FB1CE4B05A00C3DD45 /* AddButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10E74ED1CE4B05A00C3DD45 /* AddButton.swift */; };
+		A10E74FC1CE4B05A00C3DD45 /* ConfigureButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10E74EE1CE4B05A00C3DD45 /* ConfigureButton.swift */; };
+		A10E74FD1CE4B05A00C3DD45 /* DropDownButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10E74EF1CE4B05A00C3DD45 /* DropDownButton.swift */; };
+		A10E74FE1CE4B05A00C3DD45 /* ResetButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10E74F01CE4B05A00C3DD45 /* ResetButton.swift */; };
+		A10E74FF1CE4B05A00C3DD45 /* RunButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10E74F11CE4B05A00C3DD45 /* RunButton.swift */; };
+		A10E75001CE4B05A00C3DD45 /* SelectDataButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10E74F21CE4B05A00C3DD45 /* SelectDataButton.swift */; };
+		A10E75011CE4B05A00C3DD45 /* DropDownCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10E74F41CE4B05A00C3DD45 /* DropDownCell.swift */; };
+		A10E75021CE4B05A00C3DD45 /* DropDownCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A10E74F51CE4B05A00C3DD45 /* DropDownCell.xib */; };
+		A10E75031CE4B05A00C3DD45 /* DropDownView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10E74F61CE4B05A00C3DD45 /* DropDownView.swift */; };
+		A10E75041CE4B05A00C3DD45 /* EasySlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10E74F81CE4B05A00C3DD45 /* EasySlider.swift */; };
+		A10E75051CE4B05A00C3DD45 /* SpreadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10E74F91CE4B05A00C3DD45 /* SpreadView.swift */; };
+		A10E75061CE4B05A00C3DD45 /* SpreadView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A10E74FA1CE4B05A00C3DD45 /* SpreadView.xib */; };
 		A12F039E1CD49BA100CA4890 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = A12F039D1CD49BA100CA4890 /* MBProgressHUD.m */; };
 		A13529F61CE4501A0031C706 /* LossView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A13529F51CE4501A0031C706 /* LossView.swift */; };
-		A139E6301CDE40BE00016CEA /* Pickers in Resources */ = {isa = PBXBuildFile; fileRef = A139E62F1CDE40BE00016CEA /* Pickers */; };
 		A15F49E91CC8B14000409DA5 /* HeatMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = A15F49E81CC8B14000409DA5 /* HeatMap.swift */; };
 		A185E5FF1CCBD3A900CB8A4A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A185E5FE1CCBD3A900CB8A4A /* Images.xcassets */; };
 		A19CD7421CC89D5300E8CDF9 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = A19CD7411CC89D5300E8CDF9 /* main.m */; };
@@ -61,10 +72,21 @@
 		A10863541CE05BB900679479 /* TableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableViewController.h; sourceTree = "<group>"; };
 		A10863551CE05BB900679479 /* TableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableViewController.m; sourceTree = "<group>"; };
 		A10863561CE05BB900679479 /* TableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TableViewController.xib; sourceTree = "<group>"; };
+		A10E74ED1CE4B05A00C3DD45 /* AddButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddButton.swift; sourceTree = "<group>"; };
+		A10E74EE1CE4B05A00C3DD45 /* ConfigureButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfigureButton.swift; sourceTree = "<group>"; };
+		A10E74EF1CE4B05A00C3DD45 /* DropDownButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DropDownButton.swift; sourceTree = "<group>"; };
+		A10E74F01CE4B05A00C3DD45 /* ResetButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResetButton.swift; sourceTree = "<group>"; };
+		A10E74F11CE4B05A00C3DD45 /* RunButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RunButton.swift; sourceTree = "<group>"; };
+		A10E74F21CE4B05A00C3DD45 /* SelectDataButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectDataButton.swift; sourceTree = "<group>"; };
+		A10E74F41CE4B05A00C3DD45 /* DropDownCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DropDownCell.swift; sourceTree = "<group>"; };
+		A10E74F51CE4B05A00C3DD45 /* DropDownCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DropDownCell.xib; sourceTree = "<group>"; };
+		A10E74F61CE4B05A00C3DD45 /* DropDownView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DropDownView.swift; sourceTree = "<group>"; };
+		A10E74F81CE4B05A00C3DD45 /* EasySlider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EasySlider.swift; sourceTree = "<group>"; };
+		A10E74F91CE4B05A00C3DD45 /* SpreadView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpreadView.swift; sourceTree = "<group>"; };
+		A10E74FA1CE4B05A00C3DD45 /* SpreadView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SpreadView.xib; sourceTree = "<group>"; };
 		A12F039C1CD49BA100CA4890 /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
 		A12F039D1CD49BA100CA4890 /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
 		A13529F51CE4501A0031C706 /* LossView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LossView.swift; sourceTree = "<group>"; };
-		A139E62F1CDE40BE00016CEA /* Pickers */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Pickers; path = /Users/ypw/Desktop/NNPlayground_iPad/NNPlayground/Pickers; sourceTree = "<absolute>"; };
 		A15F49E71CC8B14000409DA5 /* NNPlayground-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NNPlayground-Bridging-Header.h"; sourceTree = "<group>"; };
 		A15F49E81CC8B14000409DA5 /* HeatMap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeatMap.swift; sourceTree = "<group>"; };
 		A185E5FE1CCBD3A900CB8A4A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
@@ -117,6 +139,49 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		A10E74EB1CE4B05A00C3DD45 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				A10E74EC1CE4B05A00C3DD45 /* Buttons */,
+				A10E74F31CE4B05A00C3DD45 /* Cells */,
+				A10E74F61CE4B05A00C3DD45 /* DropDownView.swift */,
+				A10E74F71CE4B05A00C3DD45 /* Sliders */,
+				A10E74F91CE4B05A00C3DD45 /* SpreadView.swift */,
+				A10E74FA1CE4B05A00C3DD45 /* SpreadView.xib */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		A10E74EC1CE4B05A00C3DD45 /* Buttons */ = {
+			isa = PBXGroup;
+			children = (
+				A10E74ED1CE4B05A00C3DD45 /* AddButton.swift */,
+				A10E74EE1CE4B05A00C3DD45 /* ConfigureButton.swift */,
+				A10E74EF1CE4B05A00C3DD45 /* DropDownButton.swift */,
+				A10E74F01CE4B05A00C3DD45 /* ResetButton.swift */,
+				A10E74F11CE4B05A00C3DD45 /* RunButton.swift */,
+				A10E74F21CE4B05A00C3DD45 /* SelectDataButton.swift */,
+			);
+			path = Buttons;
+			sourceTree = "<group>";
+		};
+		A10E74F31CE4B05A00C3DD45 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				A10E74F41CE4B05A00C3DD45 /* DropDownCell.swift */,
+				A10E74F51CE4B05A00C3DD45 /* DropDownCell.xib */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		A10E74F71CE4B05A00C3DD45 /* Sliders */ = {
+			isa = PBXGroup;
+			children = (
+				A10E74F81CE4B05A00C3DD45 /* EasySlider.swift */,
+			);
+			path = Sliders;
+			sourceTree = "<group>";
+		};
 		A19CD7341CC89D5300E8CDF9 = {
 			isa = PBXGroup;
 			children = (
@@ -140,6 +205,7 @@
 		A19CD73F1CC89D5300E8CDF9 /* NNPlayground */ = {
 			isa = PBXGroup;
 			children = (
+				A10E74EB1CE4B05A00C3DD45 /* Views */,
 				A19CD7731CC89DE700E8CDF9 /* Node.h */,
 				A19CD7741CC89DE700E8CDF9 /* Node.mm */,
 				A19CD7751CC89DE700E8CDF9 /* Network.h */,
@@ -300,10 +366,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				A19CD7501CC89D5300E8CDF9 /* LaunchScreen.storyboard in Resources */,
+				A10E75061CE4B05A00C3DD45 /* SpreadView.xib in Resources */,
 				A185E5FF1CCBD3A900CB8A4A /* Images.xcassets in Resources */,
 				A19CD74D1CC89D5300E8CDF9 /* Assets.xcassets in Resources */,
+				A10E75021CE4B05A00C3DD45 /* DropDownCell.xib in Resources */,
 				A10863581CE05BB900679479 /* TableViewController.xib in Resources */,
-				A139E6301CDE40BE00016CEA /* Pickers in Resources */,
 				A19CD74B1CC89D5300E8CDF9 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -330,13 +397,23 @@
 			buildActionMask = 2147483647;
 			files = (
 				A19CD7481CC89D5300E8CDF9 /* ViewController.mm in Sources */,
+				A10E75051CE4B05A00C3DD45 /* SpreadView.swift in Sources */,
 				A19CD7451CC89D5300E8CDF9 /* AppDelegate.m in Sources */,
+				A10E74FC1CE4B05A00C3DD45 /* ConfigureButton.swift in Sources */,
 				A10863571CE05BB900679479 /* TableViewController.m in Sources */,
+				A10E75011CE4B05A00C3DD45 /* DropDownCell.swift in Sources */,
+				A10E75031CE4B05A00C3DD45 /* DropDownView.swift in Sources */,
 				A15F49E91CC8B14000409DA5 /* HeatMap.swift in Sources */,
 				A19CD7421CC89D5300E8CDF9 /* main.m in Sources */,
+				A10E74FF1CE4B05A00C3DD45 /* RunButton.swift in Sources */,
+				A10E75001CE4B05A00C3DD45 /* SelectDataButton.swift in Sources */,
+				A10E75041CE4B05A00C3DD45 /* EasySlider.swift in Sources */,
 				A13529F61CE4501A0031C706 /* LossView.swift in Sources */,
+				A10E74FB1CE4B05A00C3DD45 /* AddButton.swift in Sources */,
 				A19CD77B1CC89DE700E8CDF9 /* Util.mm in Sources */,
 				A19CD77A1CC89DE700E8CDF9 /* Network.mm in Sources */,
+				A10E74FD1CE4B05A00C3DD45 /* DropDownButton.swift in Sources */,
+				A10E74FE1CE4B05A00C3DD45 /* ResetButton.swift in Sources */,
 				A19CD7791CC89DE700E8CDF9 /* Node.mm in Sources */,
 				A12F039E1CD49BA100CA4890 /* MBProgressHUD.m in Sources */,
 			);

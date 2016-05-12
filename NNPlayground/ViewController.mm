@@ -37,13 +37,18 @@ auto regularization = None;
 Network * network = new Network(networkShape, layers, activation, regularization);
 NSLock * networkLock = [[NSLock alloc] init];
 
-- (IBAction)addNetworkLayer:(UIStepper *)sender {
+- (IBAction)addLayer:(AddButton *)sender {
+    int addValue = sender.isAddButton ? 1 : -1;
+    int newLayers = layers + addValue;
+    if(newLayers > 8 | newLayers < 2){
+        return;
+    }
+    
     _myswitch.on = false;
     always = false;
     [networkLock lock];
     int * oldNetworkShape = networkShape;
     networkShape =  new int[layers];
-    int newLayers = (int)sender.value + 2;
     
     networkShape = new int[newLayers];
     networkShape[0] = 2;
@@ -272,9 +277,17 @@ double lastNoise = 0;
     [self updateLabel];
 }
 
+- (IBAction)changeBatch:(UISlider *)sender {
+    sender.value = roundf(sender.value);
+    batch = sender.value;
+    [self updateLabel];
+}
+
 -(void) reset{
     _myswitch.on = false;
     always = false;
+    [networkLock lock];
+    [networkLock unlock];
     [self ui:^{
         [_lossView clearData];
     }];
@@ -282,11 +295,13 @@ double lastNoise = 0;
 }
 
 - (IBAction)speedup:(UISwitch *)sender {
+    [networkLock lock];
     if(sender.on){
-        trainBatch = 120;
+        trainBatch = 100;
     }else{
-        trainBatch = 9;
+        trainBatch = 1;
     }
+    [networkLock unlock];
 }
 
 int maxfps = 120;
@@ -370,19 +385,28 @@ unsigned int * outputBitmap = new unsigned int[bigOutputImageWidth*bigOutputImag
     CGImageRelease(imageRef);
 }
 
-vector<UIStepper *> steppers;
+vector<AddButton *> addbuttons;
 
-- (void)addNodeNum:(UIStepper *)sender{
+- (void)changeNodeNum:(AddButton *)sender{
     int currentLayer = (int)sender.tag;
-    networkShape[currentLayer] = sender.value;
+    int addValue = sender.isAddButton ? 1 : -1;
+    int newValue = networkShape[currentLayer] + addValue;
+    if(newValue > 8 | newValue < 1)return;
+    
+    _myswitch.on = false;
+    always = false;
+    [networkLock lock];
+    networkShape[currentLayer] = newValue;
+    [networkLock unlock];
+    
     [self reset];
 }
 
 //初始化每个结点的图像层（CALayer）
 - (void) initNodeLayer{
-    while(steppers.size()){
-        [steppers.back() removeFromSuperview];
-        steppers.pop_back();
+    while(addbuttons.size()){
+        [addbuttons.back() removeFromSuperview];
+        addbuttons.pop_back();
     }
     [networkLock lock];
     
@@ -391,7 +415,7 @@ vector<UIStepper *> steppers;
     
     //计算各个坐标
     CGFloat x = _ratioOfTrainingDataLabel.frame.origin.x + _ratioOfTrainingDataLabel.frame.size.width + 8;
-    CGFloat y = 160;
+    CGFloat y = _addLayer.frame.origin.y + _addLayer.frame.size.height * 2 + 24;
     
     CGFloat width = frame.origin.x - x;
     width /= layers - 1;    //两个结点的x坐标差
@@ -400,7 +424,7 @@ vector<UIStepper *> steppers;
     height /= 8;
     
     CGFloat ndoeWidth = height - 5*screenScale;
-    ndoeWidth = ndoeWidth > 40 ? 40 : ndoeWidth;
+    ndoeWidth = ndoeWidth > 38 ? 38 : ndoeWidth;
     frame.size = CGSizeMake(ndoeWidth, ndoeWidth);
 
     for(int i = 0; i < layers - 1; i++){
@@ -410,14 +434,21 @@ vector<UIStepper *> steppers;
             node->initNodeLayer(frame);
         }
         if(i > 0){
-            UIStepper * stepper = [[UIStepper alloc] initWithFrame:CGRectMake(frame.origin.x + ndoeWidth / 2 - 47, y - 40, 0, 0)];
-            stepper.tag = i;
-            stepper.value = networkShape[i];
-            stepper.minimumValue = 1;
-            stepper.maximumValue = 8;
-            [stepper addTarget:self action:@selector(addNodeNum:) forControlEvents:UIControlEventValueChanged];
-            [self.view addSubview:stepper];
-            steppers.push_back(stepper);
+            AddButton * addButton = [[AddButton alloc] initWithFrame:CGRectMake(frame.origin.x + ndoeWidth / 2 - 44, y - 44, 40, 40)];
+            addButton.isAddButton = true;
+            addButton.tag = i;
+            addButton.showsTouchWhenHighlighted = true;
+            [addButton addTarget:self action:@selector(changeNodeNum:) forControlEvents:UIControlEventTouchUpInside];
+            [self.view addSubview:addButton];
+            addbuttons.push_back(addButton);
+            
+            AddButton * minusButton = [[AddButton alloc] initWithFrame:CGRectMake(frame.origin.x + ndoeWidth / 2 + 4, y - 44, 40, 40)];
+            minusButton.isAddButton = false;
+            minusButton.tag = i;
+            minusButton.showsTouchWhenHighlighted = true;
+            [minusButton addTarget:self action:@selector(changeNodeNum:) forControlEvents:UIControlEventTouchUpInside];
+            [self.view addSubview:minusButton];
+            addbuttons.push_back(minusButton);
         }
     }
     
@@ -455,8 +486,8 @@ vector<UIStepper *> steppers;
 
 //**************************** Train ****************************
 bool always = false;
-int trainBatch = 9;
-int batch = 30;
+int trainBatch = 1;
+int batch = 10;
 int epoch = 0;
 int lastEpoch = 0;
 int speed = 0;
@@ -515,6 +546,7 @@ double lasstrainloss = 0;
         [_fpsLabel setText:[NSString stringWithFormat:@"fps:%d", speed]];
         [_ratioOfTrainingDataLabel setText:[NSString stringWithFormat:@"训练数据\n百分比：%d%%", (int)(ratioOfTrainingData*100)]];
         [_noiseLabel setText:[NSString stringWithFormat:@"噪声：%d", (int)(noise*100)]];
+        [_batchLabel setText:[NSString stringWithFormat:@"批量大小：%d", (int)(batch)]];
     }];
 }
 
@@ -707,6 +739,7 @@ int lastLearningRateSelection = 4;
               sender:sender
             selected:^(int index) {
                 regularization = (RegularizationFunction)index;
+                [self reset];
                 [sender setTitle:data[index] forState:UIControlStateNormal];
                 [tv dismissViewControllerAnimated:NO completion:nil];
             }
