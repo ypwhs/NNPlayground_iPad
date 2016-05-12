@@ -23,7 +23,7 @@
 		A10E75061CE4B05A00C3DD45 /* SpreadView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A10E74FA1CE4B05A00C3DD45 /* SpreadView.xib */; };
 		A12F039E1CD49BA100CA4890 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = A12F039D1CD49BA100CA4890 /* MBProgressHUD.m */; };
 		A13529F61CE4501A0031C706 /* LossView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A13529F51CE4501A0031C706 /* LossView.swift */; };
-		A15F49E91CC8B14000409DA5 /* HeatMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = A15F49E81CC8B14000409DA5 /* HeatMap.swift */; };
+		A15F49E91CC8B14000409DA5 /* HeatMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A15F49E81CC8B14000409DA5 /* HeatMapView.swift */; };
 		A185E5FF1CCBD3A900CB8A4A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A185E5FE1CCBD3A900CB8A4A /* Images.xcassets */; };
 		A19CD7421CC89D5300E8CDF9 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = A19CD7411CC89D5300E8CDF9 /* main.m */; };
 		A19CD7451CC89D5300E8CDF9 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A19CD7441CC89D5300E8CDF9 /* AppDelegate.m */; };
@@ -88,7 +88,7 @@
 		A12F039D1CD49BA100CA4890 /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
 		A13529F51CE4501A0031C706 /* LossView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LossView.swift; sourceTree = "<group>"; };
 		A15F49E71CC8B14000409DA5 /* NNPlayground-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NNPlayground-Bridging-Header.h"; sourceTree = "<group>"; };
-		A15F49E81CC8B14000409DA5 /* HeatMap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeatMap.swift; sourceTree = "<group>"; };
+		A15F49E81CC8B14000409DA5 /* HeatMapView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeatMapView.swift; sourceTree = "<group>"; };
 		A185E5FE1CCBD3A900CB8A4A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		A19CD73D1CC89D5300E8CDF9 /* NNPlayground.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NNPlayground.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A19CD7411CC89D5300E8CDF9 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -221,7 +221,7 @@
 				A10863561CE05BB900679479 /* TableViewController.xib */,
 				A19CD7461CC89D5300E8CDF9 /* ViewController.h */,
 				A19CD7471CC89D5300E8CDF9 /* ViewController.mm */,
-				A15F49E81CC8B14000409DA5 /* HeatMap.swift */,
+				A15F49E81CC8B14000409DA5 /* HeatMapView.swift */,
 				A13529F51CE4501A0031C706 /* LossView.swift */,
 				A19CD7491CC89D5300E8CDF9 /* Main.storyboard */,
 				A19CD74C1CC89D5300E8CDF9 /* Assets.xcassets */,
@@ -403,7 +403,7 @@
 				A10863571CE05BB900679479 /* TableViewController.m in Sources */,
 				A10E75011CE4B05A00C3DD45 /* DropDownCell.swift in Sources */,
 				A10E75031CE4B05A00C3DD45 /* DropDownView.swift in Sources */,
-				A15F49E91CC8B14000409DA5 /* HeatMap.swift in Sources */,
+				A15F49E91CC8B14000409DA5 /* HeatMapView.swift in Sources */,
 				A19CD7421CC89D5300E8CDF9 /* main.m in Sources */,
 				A10E74FF1CE4B05A00C3DD45 /* RunButton.swift in Sources */,
 				A10E75001CE4B05A00C3DD45 /* SelectDataButton.swift in Sources */,

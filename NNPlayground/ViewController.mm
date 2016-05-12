@@ -69,6 +69,20 @@ NSLock * networkLock = [[NSLock alloc] init];
     [self reset];
 }
 
+bool discretize = false;
+- (void)buildInputImage{
+    //创建input图像
+    vector<Node*> &inputLayer = *network->network[0];
+    for(int j = 0; j < 100; j++){
+        for(int i = 0; i < 100; i++){
+            for(int k = 0; k < inputLayer.size(); k++){
+                inputLayer[0]->updateBitmapPixel(i, j, (i - 50.0)/50*6, discretize);
+                inputLayer[1]->updateBitmapPixel(i, j, (j - 50.0)/50*6, discretize);
+            }
+        }
+    }
+}
+
 //初始化神经网络
 - (void)resetNetwork{
     [networkLock lock];
@@ -76,18 +90,7 @@ NSLock * networkLock = [[NSLock alloc] init];
     lastEpoch = 0;
     Network * oldNetwork = network;
     network = new Network(networkShape, layers, activation, None);
-    
-    //创建input图像
-    vector<Node*> &inputLayer = *network->network[0];
-    for(int j = 0; j < 100; j++){
-        for(int i = 0; i < 100; i++){
-            for(int k = 0; k < inputLayer.size(); k++){
-                inputLayer[0]->updateBitmapPixel(i, j, (i - 50.0)/50*6);
-                inputLayer[1]->updateBitmapPixel(i, j, (j - 50.0)/50*6);
-            }
-        }
-    }
-    
+    [self buildInputImage];
     [networkLock unlock];
     
     [self initNodeLayer];
@@ -141,8 +144,8 @@ double noise = 0;
 double normalRandom(double mean, double variance){
     double v1, v2, s;
     do {
-        v1 = 2 * drand() - 1;
-        v2 = 2 * drand() - 1;
+        v1 = drand(-1, 1);
+        v2 = drand(-1, 1);
         s = v1 * v1 + v2 * v2;
     } while (s > 1);
     
@@ -322,8 +325,6 @@ double lastNoise = 0;
     [networkLock unlock];
 }
 
-int maxfps = 120;
-
 //*************************** Heatmap ***************************
 
 UIImage * image;
@@ -335,7 +336,7 @@ UIImage * image;
         for(int i = 0; i < 100; i++){
             inputs[0] = (i - 50.0)/50;
             inputs[1] = (j - 50.0)/50;
-            network->forwardProp(inputs, 2, i, j);
+            network->forwardProp(inputs, 2, i, j, discretize);
         }
     }
     
@@ -570,6 +571,7 @@ double trainLoss = 0, testLoss = 0;
 }
 
 double lastTrainTime = 0;
+int maxfps = 120;
 - (void)train{
     while(always){
         //帧数控制
@@ -794,6 +796,30 @@ int lastRegularizationRateSelection = 0;
      ];
     
     [self presentViewController:tv animated:YES completion:nil];
+}
+
+bool isShowTestData = false;
+- (IBAction)showTestData:(UIButton *)sender {
+    isShowTestData = !isShowTestData;
+    if(isShowTestData){
+        [sender setTitle:@"显示" forState: UIControlStateNormal];
+        [_heatMap setTestData:testx1 x2:testx2 y:testy size:testNum];
+    }else{
+        [sender setTitle:@"不显示" forState: UIControlStateNormal];
+        [_heatMap setData:trainx1 x2:trainx2 y:trainy size:trainNum];
+    }
+}
+- (IBAction)changeDiscretize:(UIButton *)sender {
+    [networkLock lock];
+    discretize = !discretize;
+    if(discretize){
+        [sender setTitle:@"边界" forState: UIControlStateNormal];
+    }else{
+        [sender setTitle:@"正常" forState: UIControlStateNormal];
+    }
+    [self buildInputImage];
+    [networkLock unlock];
+    [self getHeatData];
 }
 
 - (void)viewDidAppear:(BOOL)animated{
