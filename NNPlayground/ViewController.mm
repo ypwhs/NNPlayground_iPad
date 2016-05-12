@@ -266,6 +266,9 @@ double lastNoise = 0;
 -(void) reset{
     _myswitch.on = false;
     always = false;
+    [self ui:^{
+        [_lossView clearData];
+    }];
     [self resetNetwork];
 }
 
@@ -449,8 +452,8 @@ int epoch = 0;
 int lastEpoch = 0;
 int speed = 0;
 double lastEpochTime = [NSDate date].timeIntervalSince1970;
-double trainloss = 0;
-
+double trainloss = 0, testLoss = 0;
+double lasstrainloss = 0;
 - (void)onestep{
     [networkLock lock];
     
@@ -471,8 +474,26 @@ double trainloss = 0;
         }
     }
     epoch += batch;
+    trainloss = loss/trainNum/batch;
+    double theloss = trainloss;
+    [self ui:^{
+        [_lossView addData:theloss];
+    }];
+    
+//    [self ui:^{
+//        [_lossView addData:trainloss];
+//    }];
+    
+    loss = 0;
+    for (int i = 0; i < testNum; i++) {
+        inputs[0] = testx1[i];
+        inputs[1] = testx2[i];
+        double output = network->forwardProp(inputs, 2);
+        loss += 0.5 * pow(output - testy[i], 2);
+    }
+    testLoss = loss/testNum;
+    
     [networkLock unlock];
-    trainloss = loss/DATA_NUM/batch;
     double now = [NSDate date].timeIntervalSince1970;
     speed = 1.0/(now - lastEpochTime);
     lastEpochTime = now;
@@ -484,7 +505,7 @@ double trainloss = 0;
 - (void)updateLabel{
     [self ui:^{
         [_outputLabel setText:[NSString stringWithFormat:@"训练次数:%d", epoch]];
-        [_lossLabel setText:[NSString stringWithFormat:@"训练误差:%.3f", trainloss]];
+        [_lossLabel setText:[NSString stringWithFormat:@"训练误差:%.3f\n测试误差%.3f", trainloss, testLoss]];
         [_fpsLabel setText:[NSString stringWithFormat:@"fps:%d", speed]];
         [_ratioOfTrainingDataLabel setText:[NSString stringWithFormat:@"训练数据百分比：%d%%", (int)(ratioOfTrainingData*100)]];
         [_noiseLabel setText:[NSString stringWithFormat:@"噪声：%d", (int)(noise*100)]];

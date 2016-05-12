@@ -27,6 +27,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *lossLabel;
 @property (weak, nonatomic) IBOutlet UILabel *ratioOfTrainingDataLabel;
 @property (weak, nonatomic) IBOutlet UILabel *noiseLabel;
+@property (weak, nonatomic) IBOutlet LossView *lossView;
 
 @end
 

@@ -289,6 +289,10 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="oBT-7m-hRJ" customClass="LossView" customModule="NNPlayground" customModuleProvider="target">
+                                <rect key="frame" x="788" y="635" width="221" height="125"/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.029999999999999999" colorSpace="calibratedRGB"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -349,6 +353,7 @@
                         <outlet property="fpsLabel" destination="J6l-2R-oE7" id="lgh-2s-ZVq"/>
                         <outlet property="heatMap" destination="zie-PW-5as" id="EUz-mc-KX6"/>
                         <outlet property="lossLabel" destination="nbw-rS-l0b" id="BMb-Yu-5jI"/>
+                        <outlet property="lossView" destination="oBT-7m-hRJ" id="lyP-II-syt"/>
                         <outlet property="myswitch" destination="DZR-z9-Peg" id="LpM-Nh-Ozu"/>
                         <outlet property="noiseLabel" destination="AiM-S9-yWL" id="ML4-EQ-ov0"/>
                         <outlet property="outputLabel" destination="WYA-1I-afQ" id="YF7-wc-tbU"/>
