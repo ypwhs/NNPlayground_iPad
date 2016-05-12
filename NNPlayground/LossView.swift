@@ -9,39 +9,51 @@
 import UIKit
 
 class LossView: UIView {
-    var data:[CGFloat] = []
+    var train:[CGFloat] = []
+    var test:[CGFloat] = []
+    
     override func drawRect(rect: CGRect) {
-        if data.count < 1{
+        if train.count < 1{
             return
         }
         let context = UIGraphicsGetCurrentContext();
         var max:CGFloat = 0;
-        for d in data{
+        for d in train{
             if d > max{
                 max = d;
             }
         }
         let width = rect.width
         let height = rect.height
-        let n = data.count
-        UIColor.blackColor().setStroke()
+        let n = train.count
         CGContextSetLineWidth(context , 1.0)
         
-        var points = [CGPoint]()
+        UIColor.blackColor().setStroke()
+        var trainpoints = [CGPoint]()
         for i in 0..<n{
-            points.append(CGPointMake(width*CGFloat(i)/CGFloat(n), (1 - data[i] / max) * height))
+            trainpoints.append(CGPointMake(width*CGFloat(i)/CGFloat(n-1), (1 - train[i] / max) * height))
         }
-        CGContextAddLines(context, points, points.count)
+        CGContextAddLines(context, trainpoints, trainpoints.count)
+        CGContextDrawPath(context, .Stroke)
+        
+        UIColor(white: 0, alpha: 0.2).setStroke()
+        var testpoints = [CGPoint]()
+        for i in 0..<n{
+            testpoints.append(CGPointMake(width*CGFloat(i)/CGFloat(n-1), (1 - test[i] / max) * height))
+        }
+        CGContextAddLines(context, testpoints, testpoints.count)
         CGContextDrawPath(context, .Stroke)
     }
     
-    func addData(d:Double){
-        data.append(CGFloat(d))
+    func addLoss(a:Double, b:Double){
+        train.append(CGFloat(a))
+        test.append(CGFloat(b))
         setNeedsDisplay()
     }
     
     func clearData(){
-        data = []
+        train = []
+        test = []
         setNeedsDisplay()
     }
 

@@ -164,14 +164,23 @@ void dataset_xor(){
 }
 
 void dataset_spiral(){
-    for (int i = 0; i < DATA_NUM; i++) {
-        double deltaT = i > DATA_NUM/2 ? 0 : π;
+    double deltaT = 0;
+    for (int i = 0; i < DATA_NUM/2; i++) {
         double n = DATA_NUM/2;
         double r = (double)i / n * 0.8;
         double t = 1.75 * i / n * 2 * π + deltaT;
         rawx1[i] = r * sin(t) + drand(-1, 1)/6 * noise;
         rawx2[i] = r * cos(t) + drand(-1, 1)/6 * noise;
-        rawy[i] = DATA_NUM/2 > 0 ? 1 : -1;
+        rawy[i] = 1;
+    }
+    deltaT = π;
+    for (int i = 0; i < DATA_NUM/2; i++) {
+        double n = DATA_NUM/2;
+        double r = (double)i / n * 0.8;
+        double t = 1.75 * i / n * 2 * π + deltaT;
+        rawx1[i+DATA_NUM/2] = r * sin(t) + drand(-1, 1)/6 * noise;
+        rawx2[i+DATA_NUM/2] = r * cos(t) + drand(-1, 1)/6 * noise;
+        rawy[i+DATA_NUM/2] = -1;
     }
 }
 
@@ -274,9 +283,9 @@ double lastNoise = 0;
 
 - (IBAction)speedup:(UISwitch *)sender {
     if(sender.on){
-        batch = 120;
+        trainBatch = 120;
     }else{
-        batch = 9;
+        trainBatch = 9;
     }
 }
 
@@ -381,14 +390,13 @@ vector<UIStepper *> steppers;
     (*network->network[layers - 1])[0]->initNodeLayer(frame);   //将heatmap的frame设置到网络的输出结点
     
     //计算各个坐标
-    CGFloat x = 44;
+    CGFloat x = _ratioOfTrainingDataLabel.frame.origin.x + _ratioOfTrainingDataLabel.frame.size.width + 8;
     CGFloat y = 160;
     
     CGFloat width = frame.origin.x - x;
     width /= layers - 1;    //两个结点的x坐标差
     
     CGFloat height = self.view.frame.size.height - y;
-//    CGFloat height = _activationSegment.frame.origin.y - margin;
     height /= 8;
     
     CGFloat ndoeWidth = height - 5*screenScale;
@@ -447,7 +455,8 @@ vector<UIStepper *> steppers;
 
 //**************************** Train ****************************
 bool always = false;
-int batch = 9;
+int trainBatch = 9;
+int batch = 30;
 int epoch = 0;
 int lastEpoch = 0;
 int speed = 0;
@@ -459,32 +468,6 @@ double lasstrainloss = 0;
     
     //进行batch轮训练
     double loss = 0;
-    int trainEpoch = 0;
-    for(int n = 0; n < batch; n++){
-        for (int i = 0; i < trainNum; i++) {
-            inputs[0] = trainx1[i];
-            inputs[1] = trainx2[i];
-            double output = network->forwardProp(inputs, 2);
-            network->backProp(trainy[i]);
-            loss += 0.5 * pow(output - trainy[i], 2);
-            trainEpoch++;
-            if(trainEpoch%30==0){
-                network->updateWeights(learningRate, regularizationRate);
-            }
-        }
-    }
-    epoch += batch;
-    trainloss = loss/trainNum/batch;
-    double theloss = trainloss;
-    [self ui:^{
-        [_lossView addData:theloss];
-    }];
-    
-//    [self ui:^{
-//        [_lossView addData:trainloss];
-//    }];
-    
-    loss = 0;
     for (int i = 0; i < testNum; i++) {
         inputs[0] = testx1[i];
         inputs[1] = testx2[i];
@@ -492,6 +475,29 @@ double lasstrainloss = 0;
         loss += 0.5 * pow(output - testy[i], 2);
     }
     testLoss = loss/testNum;
+    
+    loss = 0;
+    int trainEpoch = 0;
+    for(int n = 0; n < trainBatch; n++){
+        for (int i = 0; i < trainNum; i++) {
+            inputs[0] = trainx1[i];
+            inputs[1] = trainx2[i];
+            double output = network->forwardProp(inputs, 2);
+            network->backProp(trainy[i]);
+            loss += 0.5 * pow(output - trainy[i], 2);
+            trainEpoch++;
+            if((trainEpoch+1)%batch==0){
+                network->updateWeights(learningRate, regularizationRate);
+            }
+        }
+    }
+    epoch += trainBatch;
+    trainloss = loss/trainNum/trainBatch;
+    
+    double tmp1 = trainloss, tmp2 = testLoss;
+    [self ui:^{
+        [_lossView addLoss:tmp1 b:tmp2];
+    }];
     
     [networkLock unlock];
     double now = [NSDate date].timeIntervalSince1970;
@@ -507,7 +513,7 @@ double lasstrainloss = 0;
         [_outputLabel setText:[NSString stringWithFormat:@"训练次数:%d", epoch]];
         [_lossLabel setText:[NSString stringWithFormat:@"训练误差:%.3f\n测试误差%.3f", trainloss, testLoss]];
         [_fpsLabel setText:[NSString stringWithFormat:@"fps:%d", speed]];
-        [_ratioOfTrainingDataLabel setText:[NSString stringWithFormat:@"训练数据百分比：%d%%", (int)(ratioOfTrainingData*100)]];
+        [_ratioOfTrainingDataLabel setText:[NSString stringWithFormat:@"训练数据\n百分比：%d%%", (int)(ratioOfTrainingData*100)]];
         [_noiseLabel setText:[NSString stringWithFormat:@"噪声：%d", (int)(noise*100)]];
     }];
 }

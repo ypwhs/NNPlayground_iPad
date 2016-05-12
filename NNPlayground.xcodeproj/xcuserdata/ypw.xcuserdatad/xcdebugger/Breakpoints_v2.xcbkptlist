@@ -132,11 +132,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NNPlayground/ViewController.mm"
-            timestampString = "484731826.940828"
+            timestampString = "484737120.531247"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "476"
-            endingLineNumber = "476"
+            startingLineNumber = "494"
+            endingLineNumber = "494"
             landmarkName = "-onestep"
             landmarkType = "5">
          </BreakpointContent>
@@ -180,11 +180,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NNPlayground/ViewController.mm"
-            timestampString = "484731826.940828"
+            timestampString = "484745140.744368"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "448"
-            endingLineNumber = "448"
+            startingLineNumber = "456"
+            endingLineNumber = "456"
             landmarkName = "@implementation ViewController"
             landmarkType = "3">
             <Locations>
@@ -292,11 +292,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NNPlayground/ViewController.mm"
-            timestampString = "484732731.545676"
+            timestampString = "484736875.633856"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "522"
-            endingLineNumber = "522"
+            startingLineNumber = "528"
+            endingLineNumber = "528"
             landmarkName = "-train"
             landmarkType = "5">
          </BreakpointContent>
@@ -532,11 +532,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NNPlayground/ViewController.mm"
-            timestampString = "484731826.940828"
+            timestampString = "484736364.618426"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "373"
-            endingLineNumber = "373"
+            startingLineNumber = "382"
+            endingLineNumber = "382"
             landmarkName = "-initNodeLayer"
             landmarkType = "5">
          </BreakpointContent>
@@ -548,11 +548,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NNPlayground/ViewController.mm"
-            timestampString = "484731826.940828"
+            timestampString = "484736364.618426"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "377"
-            endingLineNumber = "377"
+            startingLineNumber = "386"
+            endingLineNumber = "386"
             landmarkName = "-initNodeLayer"
             landmarkType = "5">
          </BreakpointContent>
@@ -564,11 +564,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NNPlayground/ViewController.mm"
-            timestampString = "484731826.940828"
+            timestampString = "484736364.618426"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "376"
-            endingLineNumber = "376"
+            startingLineNumber = "385"
+            endingLineNumber = "385"
             landmarkName = "-initNodeLayer"
             landmarkType = "5">
          </BreakpointContent>
@@ -596,11 +596,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NNPlayground/LossView.swift"
-            timestampString = "484731368.803718"
+            timestampString = "484737076.499049"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "34"
-            endingLineNumber = "34"
+            startingLineNumber = "40"
+            endingLineNumber = "40"
             landmarkName = "drawRect(_:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -612,12 +612,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NNPlayground/LossView.swift"
-            timestampString = "484732569.076251"
+            timestampString = "484743673.031806"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "39"
-            endingLineNumber = "39"
-            landmarkName = "addData(_:)"
+            startingLineNumber = "49"
+            endingLineNumber = "49"
+            landmarkName = "addLoss(_:b:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
