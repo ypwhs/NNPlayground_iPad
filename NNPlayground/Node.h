@@ -49,7 +49,7 @@ public:
     double numAccumulatedDers = 0;  //累计输入导数数量
     Activation activation;  //激活函数
     int imageWidth = 100;   //图像宽度
-    unsigned int * outputBitmap;    //输出图像数据（HeatMap）
+    unsigned int outputBitmap[100 * 100];    //输出图像数据（HeatMap）
     Node(Activation &act) {
         activation = act;
     }
@@ -60,6 +60,8 @@ public:
     void updateOutput(int x, int y, bool discretize);
     void updateBitmapPixel(int x1, int x2, double value, bool discretize);
     UIImage * nodeImage;
+    
+    CGContextRef nodeBitmapContext = CGBitmapContextCreate(outputBitmap, imageWidth, imageWidth, 8, 4*imageWidth, CGColorSpaceCreateDeviceRGB(), kCGBitmapByteOrder32Big | kCGImageAlphaNoneSkipLast);
     UIImage * getImage();
     void updateVisibility();
     

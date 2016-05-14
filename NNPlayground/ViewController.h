@@ -18,18 +18,19 @@
 @property (weak, nonatomic) IBOutlet HeatMapView *heatMap;
 @property (weak, nonatomic) IBOutlet UILabel *outputLabel;
 @property (weak, nonatomic) IBOutlet UILabel *fpsLabel;
-@property (weak, nonatomic) IBOutlet UISwitch *myswitch;
-@property (weak, nonatomic) IBOutlet UISwitch *speedupswitch;
 @property (weak, nonatomic) IBOutlet UIButton *circleButton;
 @property (weak, nonatomic) IBOutlet UIButton *xorButton;
 @property (weak, nonatomic) IBOutlet UIButton *twoGaussianButton;
 @property (weak, nonatomic) IBOutlet UIButton *spiralButton;
-@property (weak, nonatomic) IBOutlet UILabel *lossLabel;
+@property (weak, nonatomic) IBOutlet UILabel *trainLossLabel;
+@property (weak, nonatomic) IBOutlet UILabel *testLossLabel;
+
 @property (weak, nonatomic) IBOutlet UILabel *ratioOfTrainingDataLabel;
 @property (weak, nonatomic) IBOutlet UILabel *noiseLabel;
 @property (weak, nonatomic) IBOutlet LossView *lossView;
 @property (weak, nonatomic) IBOutlet UILabel *batchLabel;
 @property (weak, nonatomic) IBOutlet AddButton *addLayer;
+@property (weak, nonatomic) IBOutlet RunButton *runBuntton;
 
 @end
 

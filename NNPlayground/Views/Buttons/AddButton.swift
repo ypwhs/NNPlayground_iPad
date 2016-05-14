@@ -18,10 +18,10 @@ class AddButton: UIButton {
         let path = UIBezierPath(ovalInRect: rect)
         fillColor.setFill()
         path.fill()
-        
+
         //set up the width and height variables
         //for the horizontal stroke
-        let plusHeight: CGFloat = 3.0
+        let plusHeight: CGFloat = 2.0
         let plusWidth: CGFloat = min(bounds.width, bounds.height) * 0.45
         
         //create the path

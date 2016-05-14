@@ -44,7 +44,7 @@ NSLock * networkLock = [[NSLock alloc] init];
         return;
     }
     
-    _myswitch.on = false;
+    _runBuntton.isRunButton = true;
     always = false;
     [networkLock lock];
     int * oldNetworkShape = networkShape;
@@ -115,9 +115,15 @@ bool discretize = false;
     }
     trainLoss = loss/testNum;
     
+    double tmp1 = trainLoss, tmp2 = testLoss;
+    [self ui:^{
+        [_lossView addLoss:tmp1 b:tmp2];
+    }];
+    
     [networkLock unlock];
     
     [_heatMap setData:trainx1 x2:trainx2 y:trainy size:trainNum];
+    if(isShowTestData)[_heatMap setTestData:testx1 x2:testx2 y:testy size:testNum];
     
     //保存数据点截图
 //    _fpsLabel.text = @"";
@@ -282,7 +288,7 @@ double lastRatio = 0.5;
         lastRatio = ratioOfTrainingData;
         [self updateDataset];
     }
-    [self updateLabel];
+    [self updateLabel2];
 }
 
 double lastNoise = 0;
@@ -295,17 +301,23 @@ double lastNoise = 0;
         lastNoise = noise;
         [self updateDataset];
     }
-    [self updateLabel];
+    [self updateLabel2];
 }
 
 - (IBAction)changeBatch:(UISlider *)sender {
     sender.value = roundf(sender.value);
     batch = sender.value;
-    [self updateLabel];
+    [self updateLabel2];
+}
+
+- (void)updateLabel2{
+    [_ratioOfTrainingDataLabel setText:[NSString stringWithFormat:@"训练数据\n百分比:%d%%", (int)(ratioOfTrainingData*100)]];
+    [_noiseLabel setText:[NSString stringWithFormat:@"噪声:%d", (int)(noise*100)]];
+    [_batchLabel setText:[NSString stringWithFormat:@"批量大小:%d", (int)(batch)]];
 }
 
 -(void) reset{
-    _myswitch.on = false;
+    _runBuntton.isRunButton = true;
     always = false;
     [networkLock lock];
     [networkLock unlock];
@@ -318,7 +330,7 @@ double lastNoise = 0;
 - (IBAction)speedup:(UISwitch *)sender {
     [networkLock lock];
     if(sender.on){
-        trainBatch = 100;
+        trainBatch = 10;
     }else{
         trainBatch = 1;
     }
@@ -342,20 +354,16 @@ UIImage * image;
     
     [self ui:^{
         //更新大图
-        Node * outputNode = (*network->network[layers-1])[0];
-        [_heatMap.backgroundLayer setContents:(id)outputNode->getImage().CGImage];
+        [_heatMap.backgroundLayer setContents:(id)(*network->network[layers-1])[0]->getImage().CGImage];
         
         //更新小图
         for(int i = 0; i < layers - 1; i++){
             for(int j = 0; j < networkShape[i]; j++){
                 Node * node = (*network->network[i])[j];
-                [CATransaction begin];
-                [CATransaction setValue:(id)kCFBooleanTrue forKey:kCATransactionDisableActions];
                 if(layers < 5 && i > 0){
                     node->updateVisibility();
                 }
                 [node->nodeLayer setContents:(id)node->getImage().CGImage];
-                [CATransaction commit];
             }
         }
         
@@ -364,10 +372,7 @@ UIImage * image;
             for(int j = 0; j < networkShape[i]; j++){
                 Node * node = (*network->network[i])[j];
                 for(int k = 0; k < node->outputs.size(); k++){
-                    [CATransaction begin];
-                    [CATransaction setValue:(id)kCFBooleanTrue forKey:kCATransactionDisableActions];
                     node->outputs[k]->updateCurve();
-                    [CATransaction commit];
                 }
             }
         }
@@ -412,7 +417,7 @@ vector<AddButton *> addbuttons;
     int newValue = networkShape[currentLayer] + addValue;
     if(newValue > 8 | newValue < 1)return;
     
-    _myswitch.on = false;
+    _runBuntton.isRunButton = true;
     always = false;
     [networkLock lock];
     networkShape[currentLayer] = newValue;
@@ -421,7 +426,8 @@ vector<AddButton *> addbuttons;
     [self reset];
 }
 
-//初始化每个结点的图像层（CALayer）
+//初始化每个结点的图像层（CALayer
+CGFloat screenScale = [UIScreen mainScreen].scale;
 - (void) initNodeLayer{
     while(addbuttons.size()){
         [addbuttons.back() removeFromSuperview];
@@ -433,7 +439,7 @@ vector<AddButton *> addbuttons;
     (*network->network[layers - 1])[0]->initNodeLayer(frame);   //将heatmap的frame设置到网络的输出结点
     
     //计算各个坐标
-    CGFloat x = _ratioOfTrainingDataLabel.frame.origin.x + _ratioOfTrainingDataLabel.frame.size.width + 8;
+    CGFloat x = _ratioOfTrainingDataLabel.frame.origin.x + _ratioOfTrainingDataLabel.frame.size.width + 32;
     CGFloat y = _addLayer.frame.origin.y + _addLayer.frame.size.height * 2 + 24;
     
     CGFloat width = frame.origin.x - x;
@@ -443,7 +449,7 @@ vector<AddButton *> addbuttons;
     height /= 8;
     
     CGFloat ndoeWidth = height - 5*screenScale;
-    ndoeWidth = ndoeWidth > 38 ? 38 : ndoeWidth;
+    ndoeWidth = ndoeWidth > 40 ? 40 : ndoeWidth;
     frame.size = CGSizeMake(ndoeWidth, ndoeWidth);
 
     for(int i = 0; i < layers - 1; i++){
@@ -453,7 +459,8 @@ vector<AddButton *> addbuttons;
             node->initNodeLayer(frame);
         }
         if(i > 0){
-            AddButton * addButton = [[AddButton alloc] initWithFrame:CGRectMake(frame.origin.x + ndoeWidth / 2 - 44, y - 44, 40, 40)];
+            int buttonWidth = 36;
+            AddButton * addButton = [[AddButton alloc] initWithFrame:CGRectMake(frame.origin.x + ndoeWidth / 2 - buttonWidth - 4, y - buttonWidth - 8, buttonWidth, buttonWidth)];
             addButton.isAddButton = true;
             addButton.tag = i;
             addButton.showsTouchWhenHighlighted = true;
@@ -461,7 +468,7 @@ vector<AddButton *> addbuttons;
             [self.view addSubview:addButton];
             addbuttons.push_back(addButton);
             
-            AddButton * minusButton = [[AddButton alloc] initWithFrame:CGRectMake(frame.origin.x + ndoeWidth / 2 + 4, y - 44, 40, 40)];
+            AddButton * minusButton = [[AddButton alloc] initWithFrame:CGRectMake(frame.origin.x + ndoeWidth / 2 + 4, y - buttonWidth - 8, buttonWidth, buttonWidth)];
             minusButton.isAddButton = false;
             minusButton.tag = i;
             minusButton.showsTouchWhenHighlighted = true;
@@ -550,8 +557,10 @@ double trainLoss = 0, testLoss = 0;
     
     [networkLock unlock];
     double now = [NSDate date].timeIntervalSince1970;
-    speed = 1.0/(now - lastEpochTime);
-    lastEpochTime = now;
+    if(epoch % 10 == 0){
+        speed = 10.0/(now - lastEpochTime);
+        lastEpochTime = now;
+    }
     
     [self getHeatData];
     [self updateLabel];
@@ -560,13 +569,9 @@ double trainLoss = 0, testLoss = 0;
 - (void)updateLabel{
     [self ui:^{
         [_outputLabel setText:[NSString stringWithFormat:@"训练次数:%d", epoch]];
-        NSMutableAttributedString * at = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"训练误差:%.3f\n测试误差:%.3f", trainLoss, testLoss]];
-        [at addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithWhite:0 alpha:0.2] range:NSMakeRange(0, 11)];
-        [_lossLabel setAttributedText:at];
+        [_trainLossLabel setText:[NSString stringWithFormat:@"训练误差:%.5f", trainLoss]];
+        [_testLossLabel setText:[NSString stringWithFormat:@"测试误差:%.5f", testLoss]];
         [_fpsLabel setText:[NSString stringWithFormat:@"fps:%d", speed]];
-        [_ratioOfTrainingDataLabel setText:[NSString stringWithFormat:@"训练数据\n百分比:%d%%", (int)(ratioOfTrainingData*100)]];
-        [_noiseLabel setText:[NSString stringWithFormat:@"噪声:%d", (int)(noise*100)]];
-        [_batchLabel setText:[NSString stringWithFormat:@"批量大小:%d", (int)(batch)]];
     }];
 }
 
@@ -582,25 +587,31 @@ int maxfps = 120;
         [NSThread sleepForTimeInterval:0.01/120];
     }
 }
-- (IBAction)buttonReset:(id)sender {
+
+- (IBAction)resetClick:(ResetButton *)sender {
     [self reset];
 }
 
-- (IBAction)changeSwitch:(UISwitch *)sender {
-    always = sender.on;
+- (IBAction)runClick:(RunButton *)sender {
+    sender.isRunButton = !sender.isRunButton;
+    always = !sender.isRunButton;
     lastEpochTime = (int)[NSDate date].timeIntervalSince1970;
     [self xiancheng:^{[self train];}];
 }
 
-CGFloat screenScale = [UIScreen mainScreen].scale;
-
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    initColor();
-    [self updateDataset];
-    [self reset];
-
+- (IBAction)oneStep:(ResetButton *)sender {
+    [self onestep];
 }
+
+- (IBAction)longPressStep:(UILongPressGestureRecognizer *)sender {
+    always = sender.state == UIGestureRecognizerStateBegan;
+    printf("%d\n", always);
+    [self xiancheng:^{[self train];}];
+//    if(sender.state == UIGestureRecognizerStateBegan){
+//        
+//    }
+}
+
 
 MBProgressHUD *hud = [MBProgressHUD alloc];
 
@@ -798,33 +809,53 @@ int lastRegularizationRateSelection = 0;
     [self presentViewController:tv animated:YES completion:nil];
 }
 
+- (IBAction)activationExplain:(UIButton *)sender {
+    UIViewController * vc = [[UIViewController alloc]init];
+    UIWebView * v = [[UIWebView alloc] init];
+    v.frame = CGRectMake(0, 0, 400, 1000);
+    vc.view = v;
+    
+    NSURL * url =[NSURL URLWithString:@"https://ypwhs.gitbooks.io/nnplayground/content/Activation_function.html"];
+    NSURLRequest * request =[NSURLRequest requestWithURL:url];
+    [v loadRequest:request];
+    
+    vc.modalPresentationStyle = UIModalPresentationPopover;
+    vc.preferredContentSize = v.frame.size;
+    
+    vc.popoverPresentationController.sourceView = sender;
+    vc.popoverPresentationController.sourceRect = CGRectMake(0, 0, sender.frame.size.width, sender.frame.size.height);
+    
+    [self presentViewController:vc animated:YES completion:nil];
+}
+
+
 bool isShowTestData = false;
-- (IBAction)showTestData:(UIButton *)sender {
-    isShowTestData = !isShowTestData;
+- (IBAction)showTestData:(CheckButton *)sender {
+    sender.checked = !sender.checked;
+    isShowTestData = sender.checked;
     if(isShowTestData){
-        [sender setTitle:@"显示" forState: UIControlStateNormal];
         [_heatMap setTestData:testx1 x2:testx2 y:testy size:testNum];
     }else{
-        [sender setTitle:@"不显示" forState: UIControlStateNormal];
         [_heatMap setData:trainx1 x2:trainx2 y:trainy size:trainNum];
     }
 }
-- (IBAction)changeDiscretize:(UIButton *)sender {
+
+- (IBAction)changeDiscretize:(CheckButton *)sender {
+    sender.checked = !sender.checked;
     [networkLock lock];
-    discretize = !discretize;
-    if(discretize){
-        [sender setTitle:@"边界" forState: UIControlStateNormal];
-    }else{
-        [sender setTitle:@"正常" forState: UIControlStateNormal];
-    }
+    discretize = sender.checked;
     [self buildInputImage];
     [networkLock unlock];
     [self getHeatData];
 }
 
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    initColor();
+}
+
 - (void)viewDidAppear:(BOOL)animated{
-    [self resetNetwork];
-    [self updateShadows];
+    [self updateDataset];
 }
 
 - (void)didReceiveMemoryWarning {

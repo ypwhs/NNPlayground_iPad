@@ -36,6 +36,7 @@
 		A19CD7791CC89DE700E8CDF9 /* Node.mm in Sources */ = {isa = PBXBuildFile; fileRef = A19CD7741CC89DE700E8CDF9 /* Node.mm */; };
 		A19CD77A1CC89DE700E8CDF9 /* Network.mm in Sources */ = {isa = PBXBuildFile; fileRef = A19CD7761CC89DE700E8CDF9 /* Network.mm */; };
 		A19CD77B1CC89DE700E8CDF9 /* Util.mm in Sources */ = {isa = PBXBuildFile; fileRef = A19CD7781CC89DE700E8CDF9 /* Util.mm */; };
+		A1F23DFB1CE70372003B64DE /* CheckButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1F23DFA1CE70372003B64DE /* CheckButton.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -112,6 +113,7 @@
 		A19CD7761CC89DE700E8CDF9 /* Network.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Network.mm; sourceTree = "<group>"; };
 		A19CD7771CC89DE700E8CDF9 /* Util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Util.h; sourceTree = "<group>"; };
 		A19CD7781CC89DE700E8CDF9 /* Util.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Util.mm; sourceTree = "<group>"; };
+		A1F23DFA1CE70372003B64DE /* CheckButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -156,6 +158,7 @@
 			isa = PBXGroup;
 			children = (
 				A10E74ED1CE4B05A00C3DD45 /* AddButton.swift */,
+				A1F23DFA1CE70372003B64DE /* CheckButton.swift */,
 				A10E74EE1CE4B05A00C3DD45 /* ConfigureButton.swift */,
 				A10E74EF1CE4B05A00C3DD45 /* DropDownButton.swift */,
 				A10E74F01CE4B05A00C3DD45 /* ResetButton.swift */,
@@ -409,6 +412,7 @@
 				A10E75001CE4B05A00C3DD45 /* SelectDataButton.swift in Sources */,
 				A10E75041CE4B05A00C3DD45 /* EasySlider.swift in Sources */,
 				A13529F61CE4501A0031C706 /* LossView.swift in Sources */,
+				A1F23DFB1CE70372003B64DE /* CheckButton.swift in Sources */,
 				A10E74FB1CE4B05A00C3DD45 /* AddButton.swift in Sources */,
 				A19CD77B1CC89DE700E8CDF9 /* Util.mm in Sources */,
 				A19CD77A1CC89DE700E8CDF9 /* Network.mm in Sources */,

@@ -49,14 +49,11 @@ Node::~Node(){
     for (int i = 0; i < inputLinks.size(); i++) {
         delete inputLinks[i];
     }
-    delete outputBitmap;
 }
 
 //获取图像
 UIImage * Node::getImage(){
-    CGContextRef nodeBitmapContext = CGBitmapContextCreate(outputBitmap, imageWidth, imageWidth, 8, 4*imageWidth, CGColorSpaceCreateDeviceRGB(), kCGBitmapByteOrder32Big | kCGImageAlphaNoneSkipLast);
     CGImageRef nodeImageRef = CGBitmapContextCreateImage(nodeBitmapContext);
-    CGContextRelease(nodeBitmapContext);
     nodeImage = [UIImage imageWithCGImage:nodeImageRef];
     CGImageRelease(nodeImageRef);
     return nodeImage;
