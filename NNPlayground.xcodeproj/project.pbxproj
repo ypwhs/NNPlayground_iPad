@@ -36,6 +36,9 @@
 		A19CD7791CC89DE700E8CDF9 /* Node.mm in Sources */ = {isa = PBXBuildFile; fileRef = A19CD7741CC89DE700E8CDF9 /* Node.mm */; };
 		A19CD77A1CC89DE700E8CDF9 /* Network.mm in Sources */ = {isa = PBXBuildFile; fileRef = A19CD7761CC89DE700E8CDF9 /* Network.mm */; };
 		A19CD77B1CC89DE700E8CDF9 /* Util.mm in Sources */ = {isa = PBXBuildFile; fileRef = A19CD7781CC89DE700E8CDF9 /* Util.mm */; };
+		A1A66CA71CE7765900DCA1FB /* AccelerateButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1A66CA61CE7765900DCA1FB /* AccelerateButton.swift */; };
+		A1B1B8C71CE8D3C000072DE9 /* WebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A1B1B8C51CE8D3C000072DE9 /* WebViewController.m */; };
+		A1B1B8C81CE8D3C000072DE9 /* WebViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A1B1B8C61CE8D3C000072DE9 /* WebViewController.xib */; };
 		A1F23DFB1CE70372003B64DE /* CheckButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1F23DFA1CE70372003B64DE /* CheckButton.swift */; };
 /* End PBXBuildFile section */
 
@@ -113,6 +116,10 @@
 		A19CD7761CC89DE700E8CDF9 /* Network.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Network.mm; sourceTree = "<group>"; };
 		A19CD7771CC89DE700E8CDF9 /* Util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Util.h; sourceTree = "<group>"; };
 		A19CD7781CC89DE700E8CDF9 /* Util.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Util.mm; sourceTree = "<group>"; };
+		A1A66CA61CE7765900DCA1FB /* AccelerateButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccelerateButton.swift; sourceTree = "<group>"; };
+		A1B1B8C41CE8D3C000072DE9 /* WebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebViewController.h; sourceTree = "<group>"; };
+		A1B1B8C51CE8D3C000072DE9 /* WebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebViewController.m; sourceTree = "<group>"; };
+		A1B1B8C61CE8D3C000072DE9 /* WebViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WebViewController.xib; sourceTree = "<group>"; };
 		A1F23DFA1CE70372003B64DE /* CheckButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -157,6 +164,7 @@
 		A10E74EC1CE4B05A00C3DD45 /* Buttons */ = {
 			isa = PBXGroup;
 			children = (
+				A1A66CA61CE7765900DCA1FB /* AccelerateButton.swift */,
 				A10E74ED1CE4B05A00C3DD45 /* AddButton.swift */,
 				A1F23DFA1CE70372003B64DE /* CheckButton.swift */,
 				A10E74EE1CE4B05A00C3DD45 /* ConfigureButton.swift */,
@@ -222,6 +230,9 @@
 				A10863541CE05BB900679479 /* TableViewController.h */,
 				A10863551CE05BB900679479 /* TableViewController.m */,
 				A10863561CE05BB900679479 /* TableViewController.xib */,
+				A1B1B8C41CE8D3C000072DE9 /* WebViewController.h */,
+				A1B1B8C51CE8D3C000072DE9 /* WebViewController.m */,
+				A1B1B8C61CE8D3C000072DE9 /* WebViewController.xib */,
 				A19CD7461CC89D5300E8CDF9 /* ViewController.h */,
 				A19CD7471CC89D5300E8CDF9 /* ViewController.mm */,
 				A15F49E81CC8B14000409DA5 /* HeatMapView.swift */,
@@ -371,6 +382,7 @@
 				A19CD7501CC89D5300E8CDF9 /* LaunchScreen.storyboard in Resources */,
 				A10E75061CE4B05A00C3DD45 /* SpreadView.xib in Resources */,
 				A185E5FF1CCBD3A900CB8A4A /* Images.xcassets in Resources */,
+				A1B1B8C81CE8D3C000072DE9 /* WebViewController.xib in Resources */,
 				A19CD74D1CC89D5300E8CDF9 /* Assets.xcassets in Resources */,
 				A10E75021CE4B05A00C3DD45 /* DropDownCell.xib in Resources */,
 				A10863581CE05BB900679479 /* TableViewController.xib in Resources */,
@@ -403,6 +415,7 @@
 				A10E75051CE4B05A00C3DD45 /* SpreadView.swift in Sources */,
 				A19CD7451CC89D5300E8CDF9 /* AppDelegate.m in Sources */,
 				A10E74FC1CE4B05A00C3DD45 /* ConfigureButton.swift in Sources */,
+				A1A66CA71CE7765900DCA1FB /* AccelerateButton.swift in Sources */,
 				A10863571CE05BB900679479 /* TableViewController.m in Sources */,
 				A10E75011CE4B05A00C3DD45 /* DropDownCell.swift in Sources */,
 				A10E75031CE4B05A00C3DD45 /* DropDownView.swift in Sources */,
@@ -417,6 +430,7 @@
 				A19CD77B1CC89DE700E8CDF9 /* Util.mm in Sources */,
 				A19CD77A1CC89DE700E8CDF9 /* Network.mm in Sources */,
 				A10E74FD1CE4B05A00C3DD45 /* DropDownButton.swift in Sources */,
+				A1B1B8C71CE8D3C000072DE9 /* WebViewController.m in Sources */,
 				A10E74FE1CE4B05A00C3DD45 /* ResetButton.swift in Sources */,
 				A19CD7791CC89DE700E8CDF9 /* Node.mm in Sources */,
 				A12F039E1CD49BA100CA4890 /* MBProgressHUD.m in Sources */,

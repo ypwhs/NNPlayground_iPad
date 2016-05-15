@@ -43,7 +43,7 @@ class LossView: UIView {
         let n = train.count
 
         var trainpoints = [CGPoint]()
-        let w2:Int = Int(width)/2
+        let w2:Int = 5000
         if n < w2{
             for i in 0..<n{
                 trainpoints.append(CGPointMake(width*CGFloat(i)/CGFloat(n-1), (1 - (train[i] - min) / delta) * height))

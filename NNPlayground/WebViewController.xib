@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="WebViewController">
+            <connections>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+                <outlet property="waitLabel" destination="bNc-yh-3A4" id="yP2-dY-IW7"/>
+                <outlet property="waitView" destination="J4S-Si-lle" id="6jW-vv-cvo"/>
+                <outlet property="webView" destination="M4Q-KP-RiF" id="vGB-0M-AcG"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="M4Q-KP-RiF">
+                    <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                    <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="deviceRGB"/>
+                    <connections>
+                        <outlet property="delegate" destination="-1" id="JkT-Z4-70P"/>
+                    </connections>
+                </webView>
+                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="J4S-Si-lle">
+                    <rect key="frame" x="290" y="290" width="20" height="20"/>
+                </activityIndicatorView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="正在载入" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bNc-yh-3A4">
+                    <rect key="frame" x="266" y="261" width="68" height="21"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="M4Q-KP-RiF" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="9v4-cA-oc7"/>
+                <constraint firstAttribute="trailing" secondItem="M4Q-KP-RiF" secondAttribute="trailing" id="W43-wo-LGF"/>
+                <constraint firstItem="J4S-Si-lle" firstAttribute="centerY" secondItem="M4Q-KP-RiF" secondAttribute="centerY" id="eX4-VR-Orh"/>
+                <constraint firstItem="J4S-Si-lle" firstAttribute="top" secondItem="bNc-yh-3A4" secondAttribute="bottom" constant="8" id="kJR-Cw-kjb"/>
+                <constraint firstItem="M4Q-KP-RiF" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="kvD-v6-oKn"/>
+                <constraint firstItem="J4S-Si-lle" firstAttribute="centerX" secondItem="M4Q-KP-RiF" secondAttribute="centerX" id="p79-B4-9ct"/>
+                <constraint firstAttribute="bottom" secondItem="M4Q-KP-RiF" secondAttribute="bottom" id="utf-VQ-LLl"/>
+                <constraint firstItem="bNc-yh-3A4" firstAttribute="centerX" secondItem="M4Q-KP-RiF" secondAttribute="centerX" id="xMb-Mb-pYJ"/>
+            </constraints>
+        </view>
+    </objects>
+</document>

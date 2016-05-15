@@ -8,6 +8,7 @@
 
 #import "ViewController.h"
 #import "TableViewController.h"
+#import "WebViewController.h"
 
 using namespace std;
 
@@ -48,7 +49,6 @@ NSLock * networkLock = [[NSLock alloc] init];
     always = false;
     [networkLock lock];
     int * oldNetworkShape = networkShape;
-    networkShape =  new int[layers];
     
     networkShape = new int[newLayers];
     networkShape[0] = 2;
@@ -319,6 +319,8 @@ double lastNoise = 0;
 -(void) reset{
     _runBuntton.isRunButton = true;
     always = false;
+    trainBatch = 1;
+    speedUp = false;
     [networkLock lock];
     [networkLock unlock];
     [self ui:^{
@@ -572,6 +574,11 @@ double trainLoss = 0, testLoss = 0;
         [_trainLossLabel setText:[NSString stringWithFormat:@"训练误差:%.5f", trainLoss]];
         [_testLossLabel setText:[NSString stringWithFormat:@"测试误差:%.5f", testLoss]];
         [_fpsLabel setText:[NSString stringWithFormat:@"fps:%d", speed]];
+        if(speedUp){
+            [_speedLabel setText:@"10x"];
+        }else{
+            [_speedLabel setText:@""];
+        }
     }];
 }
 
@@ -706,7 +713,6 @@ vector<CALayer *> shadows;
     [self setShadow:_spiralButton selected:dataset == Spiral];
 }
 
-
 - (IBAction)changeActivation:(UIButton *)sender {
     NSMutableArray * data = [[NSMutableArray alloc]init];
     [data addObject:@"ReLU"];
@@ -810,20 +816,9 @@ int lastRegularizationRateSelection = 0;
 }
 
 - (IBAction)activationExplain:(UIButton *)sender {
-    UIViewController * vc = [[UIViewController alloc]init];
-    UIWebView * v = [[UIWebView alloc] init];
-    v.frame = CGRectMake(0, 0, 400, 1000);
-    vc.view = v;
-    
-    NSURL * url =[NSURL URLWithString:@"https://ypwhs.gitbooks.io/nnplayground/content/Activation_function.html"];
-    NSURLRequest * request =[NSURLRequest requestWithURL:url];
-    [v loadRequest:request];
-    
-    vc.modalPresentationStyle = UIModalPresentationPopover;
-    vc.preferredContentSize = v.frame.size;
-    
-    vc.popoverPresentationController.sourceView = sender;
-    vc.popoverPresentationController.sourceRect = CGRectMake(0, 0, sender.frame.size.width, sender.frame.size.height);
+    WebViewController * vc = [[WebViewController alloc] init];
+    [vc setURL:@"https://ypwhs.gitbooks.io/nnplayground/content/Activation_function.html"
+        sender:sender];
     
     [self presentViewController:vc animated:YES completion:nil];
 }
@@ -847,6 +842,18 @@ bool isShowTestData = false;
     [self buildInputImage];
     [networkLock unlock];
     [self getHeatData];
+}
+
+bool speedUp = false;
+- (IBAction)click:(AccelerateButton *)sender {
+    speedUp = !speedUp;
+    if(speedUp){
+        trainBatch = 10;
+        [_speedLabel setText:@"10x"];
+    }else{
+        trainBatch = 1;
+        [_speedLabel setText:@""];
+    }
 }
 
 - (void)viewDidLoad {
