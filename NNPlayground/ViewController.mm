@@ -319,24 +319,12 @@ double lastNoise = 0;
 -(void) reset{
     _runBuntton.isRunButton = true;
     always = false;
-    trainBatch = 1;
-    speedUp = false;
     [networkLock lock];
     [networkLock unlock];
     [self ui:^{
         [_lossView clearData];
     }];
     [self resetNetwork];
-}
-
-- (IBAction)speedup:(UISwitch *)sender {
-    [networkLock lock];
-    if(sender.on){
-        trainBatch = 10;
-    }else{
-        trainBatch = 1;
-    }
-    [networkLock unlock];
 }
 
 //*************************** Heatmap ***************************
@@ -574,10 +562,10 @@ double trainLoss = 0, testLoss = 0;
         [_trainLossLabel setText:[NSString stringWithFormat:@"训练误差:%.5f", trainLoss]];
         [_testLossLabel setText:[NSString stringWithFormat:@"测试误差:%.5f", testLoss]];
         [_fpsLabel setText:[NSString stringWithFormat:@"fps:%d", speed]];
-        if(speedUp){
-            [_speedLabel setText:@"10x"];
-        }else{
+        if(trainBatch == 1){
             [_speedLabel setText:@""];
+        }else{
+            [_speedLabel setText:@"10x"];
         }
     }];
 }
@@ -818,10 +806,17 @@ int lastRegularizationRateSelection = 0;
 - (IBAction)activationExplain:(UIButton *)sender {
     WebViewController * vc = [[WebViewController alloc] init];
     [vc setURL:@"https://ypwhs.gitbooks.io/nnplayground/content/Activation_function.html"
-        sender:sender];
-    
+        sender:sender];    
     [self presentViewController:vc animated:YES completion:nil];
 }
+
+- (IBAction)regularizationWeb:(UIButton *)sender {
+    WebViewController * vc = [[WebViewController alloc] init];
+    [vc setURL:@"https://ypwhs.gitbooks.io/nnplayground/content/Regularization.html"
+        sender:sender];
+    [self presentViewController:vc animated:YES completion:nil];
+}
+
 
 
 bool isShowTestData = false;
@@ -844,10 +839,8 @@ bool isShowTestData = false;
     [self getHeatData];
 }
 
-bool speedUp = false;
 - (IBAction)click:(AccelerateButton *)sender {
-    speedUp = !speedUp;
-    if(speedUp){
+    if(trainBatch == 1){
         trainBatch = 10;
         [_speedLabel setText:@"10x"];
     }else{
