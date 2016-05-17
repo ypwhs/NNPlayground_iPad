@@ -32,6 +32,7 @@
 @property (weak, nonatomic) IBOutlet AddButton *addLayer;
 @property (weak, nonatomic) IBOutlet RunButton *runBuntton;
 @property (weak, nonatomic) IBOutlet UILabel *speedLabel;
+@property (weak, nonatomic) IBOutlet UILabel *hiddenLayerLabel;
 
 @end
 

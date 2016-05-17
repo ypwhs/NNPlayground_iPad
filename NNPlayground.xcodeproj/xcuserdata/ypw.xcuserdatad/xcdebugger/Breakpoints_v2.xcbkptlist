@@ -12,6 +12,15 @@
             symbolName = "malloc_error_break"
             moduleName = "">
             <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "malloc_error_break"
+                  moduleName = "libsystem_malloc.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  offsetFromSymbolStart = "0">
+               </Location>
             </Locations>
          </BreakpointContent>
       </BreakpointProxy>
@@ -132,11 +141,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NNPlayground/ViewController.mm"
-            timestampString = "485073783.348982"
+            timestampString = "485153849.816573"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "540"
-            endingLineNumber = "540"
+            startingLineNumber = "541"
+            endingLineNumber = "541"
             landmarkName = "-onestep"
             landmarkType = "5">
          </BreakpointContent>
@@ -180,11 +189,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NNPlayground/ViewController.mm"
-            timestampString = "485073783.348982"
+            timestampString = "485153849.816573"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "503"
-            endingLineNumber = "503"
+            startingLineNumber = "504"
+            endingLineNumber = "504"
             landmarkName = "@implementation ViewController"
             landmarkType = "3">
             <Locations>
@@ -228,11 +237,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NNPlayground/ViewController.mm"
-            timestampString = "485022200.676882"
+            timestampString = "485153849.816573"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "95"
-            endingLineNumber = "95"
+            startingLineNumber = "96"
+            endingLineNumber = "96"
             landmarkName = "-resetNetwork"
             landmarkType = "5">
          </BreakpointContent>
@@ -244,11 +253,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NNPlayground/ViewController.mm"
-            timestampString = "485073783.348982"
+            timestampString = "485153849.816573"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "581"
-            endingLineNumber = "581"
+            startingLineNumber = "582"
+            endingLineNumber = "582"
             landmarkName = "-train"
             landmarkType = "5">
          </BreakpointContent>
@@ -468,11 +477,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NNPlayground/ViewController.mm"
-            timestampString = "485073783.348982"
+            timestampString = "485153849.816573"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "421"
-            endingLineNumber = "421"
+            startingLineNumber = "422"
+            endingLineNumber = "422"
             landmarkName = "-initNodeLayer"
             landmarkType = "5">
          </BreakpointContent>
@@ -484,27 +493,27 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NNPlayground/ViewController.mm"
-            timestampString = "485073783.348982"
+            timestampString = "485153849.816573"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "426"
+            endingLineNumber = "426"
+            landmarkName = "-initNodeLayer"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "NNPlayground/ViewController.mm"
+            timestampString = "485153849.816573"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "425"
             endingLineNumber = "425"
-            landmarkName = "-initNodeLayer"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "NNPlayground/ViewController.mm"
-            timestampString = "485073783.348982"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "424"
-            endingLineNumber = "424"
             landmarkName = "-initNodeLayer"
             landmarkType = "5">
          </BreakpointContent>
@@ -548,11 +557,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NNPlayground/ViewController.mm"
-            timestampString = "485073783.348982"
+            timestampString = "485153849.816573"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "809"
-            endingLineNumber = "809"
+            startingLineNumber = "816"
+            endingLineNumber = "816"
             landmarkName = "-activationExplain:"
             landmarkType = "5">
          </BreakpointContent>

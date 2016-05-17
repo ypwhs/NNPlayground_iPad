@@ -62,6 +62,7 @@ NSLock * networkLock = [[NSLock alloc] init];
         networkShape[i] = repeatValue;
     }
     networkShape[layers - 1] = 1;
+    [_hiddenLayerLabel setText:[NSString stringWithFormat:@"隐藏层：%d 层",  layers - 2]];
     
     delete[] oldNetworkShape;
     [networkLock unlock];
@@ -558,10 +559,10 @@ double trainLoss = 0, testLoss = 0;
 
 - (void)updateLabel{
     [self ui:^{
-        [_outputLabel setText:[NSString stringWithFormat:@"训练次数:%d", epoch]];
-        [_trainLossLabel setText:[NSString stringWithFormat:@"训练误差:%.5f", trainLoss]];
-        [_testLossLabel setText:[NSString stringWithFormat:@"测试误差:%.5f", testLoss]];
-        [_fpsLabel setText:[NSString stringWithFormat:@"fps:%d", speed]];
+        [_outputLabel setText:[NSString stringWithFormat:@"训练次数：%d", epoch]];
+        [_trainLossLabel setText:[NSString stringWithFormat:@"训练误差：%.5f", trainLoss]];
+        [_testLossLabel setText:[NSString stringWithFormat:@"测试误差：%.5f", testLoss]];
+        [_fpsLabel setText:[NSString stringWithFormat:@"fps：%d", speed]];
         if(trainBatch == 1){
             [_speedLabel setText:@""];
         }else{
@@ -802,10 +803,16 @@ int lastRegularizationRateSelection = 0;
     
     [self presentViewController:tv animated:YES completion:nil];
 }
+- (IBAction)learningRateExplain:(UIButton *)sender {
+    WebViewController * vc = [[WebViewController alloc] init];
+    [vc setURL:@"https://ypwhs.gitbooks.io/nnplayground/content/LearningRate.html"
+        sender:sender];
+    [self presentViewController:vc animated:YES completion:nil];
+}
 
 - (IBAction)activationExplain:(UIButton *)sender {
     WebViewController * vc = [[WebViewController alloc] init];
-    [vc setURL:@"https://ypwhs.gitbooks.io/nnplayground/content/Activation_function.html"
+    [vc setURL:@"https://ypwhs.gitbooks.io/nnplayground/content/Activation.html"
         sender:sender];    
     [self presentViewController:vc animated:YES completion:nil];
 }
@@ -816,8 +823,6 @@ int lastRegularizationRateSelection = 0;
         sender:sender];
     [self presentViewController:vc animated:YES completion:nil];
 }
-
-
 
 bool isShowTestData = false;
 - (IBAction)showTestData:(CheckButton *)sender {
