@@ -118,7 +118,7 @@ bool discretize = false;
     
     double tmp1 = trainLoss, tmp2 = testLoss;
     [self ui:^{
-        [_lossView addLoss:tmp1 b:tmp2];
+        [_lossView addLoss:tmp1 test:tmp2];
     }];
     
     [networkLock unlock];
@@ -543,13 +543,16 @@ double trainLoss = 0, testLoss = 0;
     
     double tmp1 = trainLoss, tmp2 = testLoss;
     [self ui:^{
-        [_lossView addLoss:tmp1 b:tmp2];
+        [_lossView addLoss:tmp1 test:tmp2];
     }];
     
     [networkLock unlock];
+    
     double now = [NSDate date].timeIntervalSince1970;
-    if(epoch % 10 == 0){
-        speed = 10.0/(now - lastEpochTime);
+    double eopchSpeed = 0.5;
+    if(now - lastEpochTime >= eopchSpeed){
+        speed = (epoch - lastEpoch)/eopchSpeed/trainBatch;
+        lastEpoch = epoch;
         lastEpochTime = now;
     }
     

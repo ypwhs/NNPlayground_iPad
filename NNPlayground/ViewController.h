@@ -12,6 +12,7 @@
 #include "NNPlayground-Swift.h"
 #include "Network.h"
 #import "MBProgressHUD.h"
+#import "LossView.h"
 
 @interface ViewController : UIViewController
 
