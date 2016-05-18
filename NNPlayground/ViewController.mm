@@ -600,12 +600,9 @@ int maxfps = 120;
 }
 
 - (IBAction)longPressStep:(UILongPressGestureRecognizer *)sender {
-    always = sender.state == UIGestureRecognizerStateBegan;
+    always = (sender.state == UIGestureRecognizerStateBegan);
     printf("%d\n", always);
     [self xiancheng:^{[self train];}];
-//    if(sender.state == UIGestureRecognizerStateBegan){
-//        
-//    }
 }
 
 
@@ -803,25 +800,23 @@ int lastRegularizationRateSelection = 0;
     
     [self presentViewController:tv animated:YES completion:nil];
 }
+
+-(void)showURL:(NSString*)url sender:(UIView*)sender{
+    WebViewController * vc = [[WebViewController alloc] init];
+    [vc setURL:url sender:sender];
+    [self presentViewController:vc animated:YES completion:nil];
+}
+- (IBAction)detail:(UIButton *)sender {
+    [self showURL:@"https://ypwhs.gitbooks.io/nnplayground/content/" sender:sender];
+}
 - (IBAction)learningRateExplain:(UIButton *)sender {
-    WebViewController * vc = [[WebViewController alloc] init];
-    [vc setURL:@"https://ypwhs.gitbooks.io/nnplayground/content/LearningRate.html"
-        sender:sender];
-    [self presentViewController:vc animated:YES completion:nil];
+    [self showURL:@"https://ypwhs.gitbooks.io/nnplayground/content/LearningRate.html" sender:sender];
 }
-
 - (IBAction)activationExplain:(UIButton *)sender {
-    WebViewController * vc = [[WebViewController alloc] init];
-    [vc setURL:@"https://ypwhs.gitbooks.io/nnplayground/content/Activation.html"
-        sender:sender];    
-    [self presentViewController:vc animated:YES completion:nil];
+    [self showURL:@"https://ypwhs.gitbooks.io/nnplayground/content/Activation.html" sender:sender];
 }
-
 - (IBAction)regularizationWeb:(UIButton *)sender {
-    WebViewController * vc = [[WebViewController alloc] init];
-    [vc setURL:@"https://ypwhs.gitbooks.io/nnplayground/content/Regularization.html"
-        sender:sender];
-    [self presentViewController:vc animated:YES completion:nil];
+    [self showURL:@"https://ypwhs.gitbooks.io/nnplayground/content/Regularization.html" sender:sender];
 }
 
 bool isShowTestData = false;

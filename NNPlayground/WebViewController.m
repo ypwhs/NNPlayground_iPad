@@ -7,6 +7,7 @@
 //
 
 #import "WebViewController.h"
+#import "Reachability.h"
 
 @interface WebViewController ()
 
@@ -22,6 +23,12 @@
     NSURL * u =[NSURL URLWithString:myurl];
     NSURLRequest * request =[NSURLRequest requestWithURL:u];
     [_webView loadRequest:request];
+    Reachability *networkReachability = [Reachability reachabilityForInternetConnection];
+    NetworkStatus networkStatus = [networkReachability currentReachabilityStatus];
+    if (networkStatus == NotReachable) {
+        [_waitLabel setText:@"无网络连接"];
+        [_waitView removeFromSuperview];
+    }
 }
 
 - (void)didReceiveMemoryWarning {
