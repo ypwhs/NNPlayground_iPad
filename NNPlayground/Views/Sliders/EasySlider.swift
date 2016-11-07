@@ -15,19 +15,19 @@ class EasySlider: UISlider {
     var diameter:CGFloat = 20
     {
         didSet{
-            setThumbImage(OriginImage(thumbImage!, size: CGSize(width: diameter, height: diameter)), forState: .Normal)
+            setThumbImage(OriginImage(thumbImage!, size: CGSize(width: diameter, height: diameter)), for: UIControlState())
         }
     }
     
     override func didMoveToSuperview() {
-        setThumbImage(OriginImage(thumbImage!, size: CGSize(width: diameter, height: diameter)), forState: .Normal)
+        setThumbImage(OriginImage(thumbImage!, size: CGSize(width: diameter, height: diameter)), for: UIControlState())
     }
     
-    func OriginImage(image:UIImage, size:CGSize) -> UIImage {
+    func OriginImage(_ image:UIImage, size:CGSize) -> UIImage {
         UIGraphicsBeginImageContext(size)
-        image.drawInRect(CGRect(x: 0, y: 0, width: size.width, height: size.height))
+        image.draw(in: CGRect(x: 0, y: 0, width: size.width, height: size.height))
         let scaledImage = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
-        return scaledImage
+        return scaledImage!
     }
 }

@@ -11,11 +11,11 @@ import UIKit
 @IBDesignable
 class DropDownButton: UIButton {
 
-    @IBInspectable var fillColor: UIColor = UIColor.whiteColor()
+    @IBInspectable var fillColor: UIColor = UIColor.white
     
-    override func drawRect(rect: CGRect) {
+    override func draw(_ rect: CGRect) {
         //title左对齐
-        self.contentHorizontalAlignment = .Left
+        self.contentHorizontalAlignment = .left
         self.contentEdgeInsets = UIEdgeInsetsMake(0, 10, 0, 0)
         
         let path = UIBezierPath(rect: rect)
@@ -29,10 +29,10 @@ class DropDownButton: UIButton {
         let underlinePath = UIBezierPath()
         underlinePath.lineWidth = underlineHeight
         
-        underlinePath.moveToPoint(CGPoint(
+        underlinePath.move(to: CGPoint(
             x:bounds.width/2 - underlineWidth/2 + 0.5,
             y:bounds.height))
-        underlinePath.addLineToPoint(CGPoint(
+        underlinePath.addLine(to: CGPoint(
             x:bounds.width/2 + underlineWidth/2 + 0.5,
             y:bounds.height))
         
@@ -44,11 +44,11 @@ class DropDownButton: UIButton {
         let drawSize = CGSize(width: 10, height: 5)
         let originPoint = CGPoint(x: bounds.width - drawSize.width*1.5, y: bounds.height/2 - drawSize.height/2)
         let trianglePath = UIBezierPath()
-        trianglePath.moveToPoint(CGPoint(x:originPoint.x,
+        trianglePath.move(to: CGPoint(x:originPoint.x,
             y:originPoint.y))
-        trianglePath.addLineToPoint(CGPoint(x:originPoint.x + drawSize.width,
+        trianglePath.addLine(to: CGPoint(x:originPoint.x + drawSize.width,
             y:originPoint.y))
-        trianglePath.addLineToPoint(CGPoint(x:originPoint.x + drawSize.width/2,
+        trianglePath.addLine(to: CGPoint(x:originPoint.x + drawSize.width/2,
             y:originPoint.y + drawSize.height))
 
         UIColor(red: 102/255.0, green: 204/255.0, blue: 255/255.0, alpha: 1.0).setFill()

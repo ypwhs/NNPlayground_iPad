@@ -14,8 +14,8 @@ class AddButton: UIButton {
     @IBInspectable var fillColor: UIColor = UIColor(white: 158.0/255, alpha: 0.1)
     @IBInspectable var isAddButton: Bool = true
     
-    override func drawRect(rect: CGRect) {
-        let path = UIBezierPath(ovalInRect: rect)
+    override func draw(_ rect: CGRect) {
+        let path = UIBezierPath(ovalIn: rect)
         fillColor.setFill()
         path.fill()
 
@@ -30,24 +30,24 @@ class AddButton: UIButton {
         
         //move the initial point of the path
         //to the start of the horizontal stroke
-        plusPath.moveToPoint(CGPoint(
+        plusPath.move(to: CGPoint(
             x:bounds.width/2 - plusWidth/2,
             y:bounds.height/2))
         
         //add a point to the path at the end of the stroke
-        plusPath.addLineToPoint(CGPoint(
+        plusPath.addLine(to: CGPoint(
             x:bounds.width/2 + plusWidth/2,
             y:bounds.height/2))
         
         //Vertical Line
         if isAddButton {
             //move to the start of the vertical stroke
-            plusPath.moveToPoint(CGPoint(
+            plusPath.move(to: CGPoint(
                 x:bounds.width/2,
                 y:bounds.height/2 - plusWidth/2))
             
             //add the end point to the vertical stroke
-            plusPath.addLineToPoint(CGPoint(
+            plusPath.addLine(to: CGPoint(
                 x:bounds.width/2,
                 y:bounds.height/2 + plusWidth/2))
         }

@@ -22,32 +22,32 @@ class AccelerateButton: UIButton {
     
     @IBInspectable var frontWidthRatio: CGFloat = 3/16
     
-    override func drawRect(rect: CGRect) {
-        let path = UIBezierPath(ovalInRect: rect)
+    override func draw(_ rect: CGRect) {
+        let path = UIBezierPath(ovalIn: rect)
         
         let trianglePath_1 = UIBezierPath()
-        trianglePath_1.moveToPoint(CGPoint(
+        trianglePath_1.move(to: CGPoint(
             x:bounds.width*(0.5 - frontWidthRatio) - 0.5,
             y:bounds.height/2 + bounds.height*frontWidthRatio*4/3))
-        trianglePath_1.addLineToPoint(CGPoint(
+        trianglePath_1.addLine(to: CGPoint(
             x:bounds.width*(0.5 - frontWidthRatio) - 0.5,
             y:bounds.height/2 - bounds.height*frontWidthRatio*4/3))
-        trianglePath_1.addLineToPoint(CGPoint(
+        trianglePath_1.addLine(to: CGPoint(
             x:bounds.width*(0.5 + frontWidthRatio/3) - 0.5,
             y:bounds.height/2))
         let trianglePath_2 = UIBezierPath()
-        trianglePath_2.moveToPoint(CGPoint(
+        trianglePath_2.move(to: CGPoint(
             x:bounds.width*(0.5 + frontWidthRatio/3) + 0.5,
             y:bounds.height/2 + bounds.height*frontWidthRatio*4/3))
-        trianglePath_2.addLineToPoint(CGPoint(
+        trianglePath_2.addLine(to: CGPoint(
             x:bounds.width*(0.5 + frontWidthRatio/3) + 0.5,
             y:bounds.height/2 - bounds.height*frontWidthRatio*4/3))
-        trianglePath_2.addLineToPoint(CGPoint(
+        trianglePath_2.addLine(to: CGPoint(
             x:bounds.width*(0.5 + frontWidthRatio*5/3) + 0.5,
             y:bounds.height/2))
         
         if isEquilateralTriangle {
-            UIColor.whiteColor().setFill()
+            UIColor.white.setFill()
             path.fill()
             fillColor.setFill()
             trianglePath_1.fill()
@@ -56,7 +56,7 @@ class AccelerateButton: UIButton {
         else {
             fillColor.setFill()
             path.fill()
-            UIColor.whiteColor().setFill()
+            UIColor.white.setFill()
             trianglePath_1.fill()
             trianglePath_2.fill()
         }

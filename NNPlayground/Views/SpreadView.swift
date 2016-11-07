@@ -24,98 +24,98 @@ class SpreadView: UIView {
     @IBOutlet weak var setExclusiveOrButton: SelectDataButton!
     @IBOutlet weak var setGaussianButton: SelectDataButton!
     @IBOutlet weak var setSpiralButton: SelectDataButton!
-    func resetAlpha(sender: SelectDataButton) {
+    func resetAlpha(_ sender: SelectDataButton) {
         let setDataButtons = [setCircleButton,setExclusiveOrButton,setGaussianButton,setSpiralButton]
         for i in setDataButtons {
             if i == sender {
-                i.isChosen = true
+                i?.isChosen = true
             }
             else {
-                i.isChosen = false
+                i?.isChosen = false
             }
         }
     }
     
-    @IBAction func setCircle(sender: SelectDataButton) {
+    @IBAction func setCircle(_ sender: SelectDataButton) {
         setCircleData?()
         resetAlpha(sender)
     }
-    @IBAction func setExclusiveOr(sender: SelectDataButton) {
+    @IBAction func setExclusiveOr(_ sender: SelectDataButton) {
         setExclusiveOrData?()
         resetAlpha(sender)
     }
-    @IBAction func setGaussian(sender: SelectDataButton) {
+    @IBAction func setGaussian(_ sender: SelectDataButton) {
         setGaussianData?()
         resetAlpha(sender)
     }
-    @IBAction func setSpiral(sender: SelectDataButton) {
+    @IBAction func setSpiral(_ sender: SelectDataButton) {
         setSpiralData?()
         resetAlpha(sender)
     }
     
     // MARK: - UISlider
-    var setRatio: ((current: Int) -> Void)?
-    var setNoise: ((current: Int) -> Void)?
-    var setBatchSize: ((current: Int) -> Void)?
-    func setSpacing(sender: EasySlider, total: Float) -> Int {
+    var setRatio: ((_ current: Int) -> Void)?
+    var setNoise: ((_ current: Int) -> Void)?
+    var setBatchSize: ((_ current: Int) -> Void)?
+    func setSpacing(_ sender: EasySlider, total: Float) -> Int {
         let spacing = (sender.maximumValue - sender.minimumValue)/total
         let num = Int(sender.value/spacing)
         sender.setValue(Float(num)*spacing, animated: true)
         return num
     }
     
-    @IBAction func setRatioAction(sender: EasySlider) {
-        setRatio?(current: setSpacing(sender, total: 10))
+    @IBAction func setRatioAction(_ sender: EasySlider) {
+        setRatio?(setSpacing(sender, total: 10))
     }
-    @IBAction func setNoiseAction(sender: EasySlider) {
-        setNoise?(current: setSpacing(sender, total: 10))
+    @IBAction func setNoiseAction(_ sender: EasySlider) {
+        setNoise?(setSpacing(sender, total: 10))
     }
-    @IBAction func setBatchSizeAction(sender: EasySlider) {
-        setBatchSize?(current: setSpacing(sender, total: 30))
+    @IBAction func setBatchSizeAction(_ sender: EasySlider) {
+        setBatchSize?(setSpacing(sender, total: 30))
     }
     
     // MARK: - AddLayer
     var addLayer: (() -> Void)?
     
-    func addLayerButtons(sender:AddButton) {
+    func addLayerButtons(_ sender:AddButton) {
         if sender.isAddButton && layers < 8 {
             layers += 1
-            addNodeButton[layers - 3].hidden = false
-            subNodeButton[layers - 3].hidden = false
+            addNodeButton[layers - 3].isHidden = false
+            subNodeButton[layers - 3].isHidden = false
         }
         if !sender.isAddButton && layers > 2 {
             layers -= 1
-            addNodeButton[layers - 2].hidden = true
-            subNodeButton[layers - 2].hidden = true
+            addNodeButton[layers - 2].isHidden = true
+            subNodeButton[layers - 2].isHidden = true
         }
         print("\(layers)")
         addLayer?()
     }
     
     @IBOutlet weak var addLayerButtons: AddButton!
-    @IBAction func addLayerButton(sender: AddButton) {
+    @IBAction func addLayerButton(_ sender: AddButton) {
         addLayerButtons(sender)
     }
-    @IBAction func subLayerButton(sender: AddButton) {
+    @IBAction func subLayerButton(_ sender: AddButton) {
         addLayerButtons(sender)
     }
     
     // MARK: - AddNode
-    var addNode: ((layer: Int, isAdd: Bool) -> Void)?
-    func addNodeAction(sender:AddButton) {
+    var addNode: ((_ layer: Int, _ isAdd: Bool) -> Void)?
+    func addNodeAction(_ sender:AddButton) {
         var num = 1
         for i in addNodeButton {
             if i == sender {
-                addNode?(layer: num, isAdd: true)
+                addNode?(num, true)
             }
             num += 1
         }
     }
-    func subNodeAction(sender:AddButton) {
+    func subNodeAction(_ sender:AddButton) {
         var num = 1
         for i in subNodeButton {
             if i == sender {
-                addNode?(layer: num, isAdd: false)
+                addNode?(num, false)
             }
             num += 1
         }
@@ -123,12 +123,12 @@ class SpreadView: UIView {
     lazy var addNodeButton: [AddButton] = {
         let view = AddButton()
         view.frame = CGRect(x: 50, y: 100, width: 30, height: 30)
-        view.addTarget(self, action: #selector(addNodeAction), forControlEvents: .TouchUpInside)
+        view.addTarget(self, action: #selector(addNodeAction), for: .touchUpInside)
         var views = [view]
         for i in 2...6 {
             let view = AddButton()
             view.frame = CGRect(x: i*50, y: 100, width: 30, height: 30)
-            view.addTarget(self, action: #selector(addNodeAction), forControlEvents: .TouchUpInside)
+            view.addTarget(self, action: #selector(addNodeAction), for: .touchUpInside)
             views.append(view)
         }
         return views
@@ -138,13 +138,13 @@ class SpreadView: UIView {
         let view = AddButton()
         view.frame = CGRect(x: 50, y: 150, width: 30, height: 30)
         view.isAddButton = false
-        view.addTarget(self, action: #selector(subNodeAction), forControlEvents: .TouchUpInside)
+        view.addTarget(self, action: #selector(subNodeAction), for: .touchUpInside)
         var views = [view]
         for i in 2...6 {
             let view = AddButton()
             view.isAddButton = false
             view.frame = CGRect(x: i*50, y: 150, width: 30, height: 30)
-            view.addTarget(self, action: #selector(subNodeAction), forControlEvents: .TouchUpInside)
+            view.addTarget(self, action: #selector(subNodeAction), for: .touchUpInside)
             views.append(view)
         }
         return views
@@ -152,20 +152,20 @@ class SpreadView: UIView {
 
     // MARK: - DropDown
     @IBOutlet weak var learningRateButton: DropDownButton!
-    var setLearningRate: ((num: Int) -> Void)?
-    private lazy var learningRateDropView: DropDownView = {
+    var setLearningRate: ((_ num: Int) -> Void)?
+    fileprivate lazy var learningRateDropView: DropDownView = {
         let view = DropDownView()
         view.labelName = ["0.00001","0.0001","0.001","0.003","0.01","0.03","0.1","0.3","1","3","10"]
         view.showSelectedLabel = {(name: String, num: Int) in
-            self.learningRateButton.setTitle(name, forState: .Normal)
+            self.learningRateButton.setTitle(name, for: UIControlState())
             view.hide()
-            self.setLearningRate?(num: num)
+            self.setLearningRate?(num)
         }
         view.labelIsSelected = 5
         return view
     }()
     
-    @IBAction func learningRateDrop(sender: DropDownButton) {
+    @IBAction func learningRateDrop(_ sender: DropDownButton) {
         if let window = self.window {
             learningRateDropView.showInView(window,button: sender)
         }
@@ -173,20 +173,20 @@ class SpreadView: UIView {
     
     
     @IBOutlet weak var activationButton: DropDownButton!
-    var setActivation: ((num: Int) -> Void)?
-    private lazy var activationDropView: DropDownView = {
+    var setActivation: ((_ num: Int) -> Void)?
+    fileprivate lazy var activationDropView: DropDownView = {
         let view = DropDownView()
         view.labelName = ["ReLU","Tanh","Sigmoid","Linear"]
         view.showSelectedLabel = {(name: String, num: Int) in
-            self.activationButton.setTitle(name, forState: .Normal)
+            self.activationButton.setTitle(name, for: UIControlState())
             view.hide()
-            self.setActivation?(num: num)
+            self.setActivation?(num)
         }
         view.labelIsSelected = 1
         return view
     }()
     
-    @IBAction func activationDrop(sender: DropDownButton) {
+    @IBAction func activationDrop(_ sender: DropDownButton) {
         if let window = self.window {
             activationDropView.showInView(window,button: sender)
         }
@@ -194,20 +194,20 @@ class SpreadView: UIView {
     
     
     @IBOutlet weak var regularizationButton: DropDownButton!
-    var setRegularization: ((num: Int) -> Void)?
-    private lazy var regularizationDropView: DropDownView = {
+    var setRegularization: ((_ num: Int) -> Void)?
+    fileprivate lazy var regularizationDropView: DropDownView = {
         let view = DropDownView()
         view.labelName = ["None","L1","L2"]
         view.showSelectedLabel = {(name: String, num: Int) in
-            self.regularizationButton.setTitle(name, forState: .Normal)
+            self.regularizationButton.setTitle(name, for: UIControlState())
             view.hide()
-            self.setRegularization?(num: num)
+            self.setRegularization?(num)
         }
         view.labelIsSelected = 0
         return view
     }()
     
-    @IBAction func regularizationDrop(sender: DropDownButton) {
+    @IBAction func regularizationDrop(_ sender: DropDownButton) {
         if let window = self.window {
             regularizationDropView.showInView(window,button: sender)
         }
@@ -215,20 +215,20 @@ class SpreadView: UIView {
     
     
     @IBOutlet weak var regularizationRateButton: DropDownButton!
-    var setRegularizationRate: ((num: Int) -> Void)?
-    private lazy var regularizationRateDropView: DropDownView = {
+    var setRegularizationRate: ((_ num: Int) -> Void)?
+    fileprivate lazy var regularizationRateDropView: DropDownView = {
         let view = DropDownView()
         view.labelName = ["0","0.001","0.003","0.01","0.03","0.1","0.3","1","3","10"]
         view.showSelectedLabel = {(name: String, num: Int) in
-            self.regularizationRateButton.setTitle(name, forState: .Normal)
+            self.regularizationRateButton.setTitle(name, for: UIControlState())
             view.hide()
-            self.setRegularizationRate?(num: num)
+            self.setRegularizationRate?(num)
         }
         view.labelIsSelected = 0
         return view
     }()
     
-    @IBAction func regularizationRateDrop(sender: DropDownButton) {
+    @IBAction func regularizationRateDrop(_ sender: DropDownButton) {
         if let window = self.window {
             regularizationRateDropView.showInView(window,button: sender)
         }
@@ -236,42 +236,42 @@ class SpreadView: UIView {
     
     
     @IBOutlet weak var problemTypeButton: DropDownButton!
-    var setProblemType: ((num: Int) -> Void)?
-    private lazy var problemTypeDropView: DropDownView = {
+    var setProblemType: ((_ num: Int) -> Void)?
+    fileprivate lazy var problemTypeDropView: DropDownView = {
         let view = DropDownView()
         view.labelName = ["Classification","Regression"]
         view.showSelectedLabel = {(name: String, num: Int) in
-            self.problemTypeButton.setTitle(name, forState: .Normal)
+            self.problemTypeButton.setTitle(name, for: UIControlState())
             view.hide()
-            self.setProblemType?(num: num)
+            self.setProblemType?(num)
         }
         view.labelIsSelected = 0
         return view
     }()
     
-    @IBAction func problemTypeDrop(sender: DropDownButton) {
+    @IBAction func problemTypeDrop(_ sender: DropDownButton) {
         if let window = self.window {
             problemTypeDropView.showInView(window,button: sender)
         }
     }
     
     //MARK: - View
-    func showInView(view:UIView) {
+    func showInView(_ view:UIView) {
         frame = view.bounds
         view.addSubview(self)
         
         layoutIfNeeded()
         
-        UIView.animateWithDuration(0.2, delay: 0.0, options: .CurveEaseIn, animations: {[weak self]  _ in
-            self?.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.3)
+        UIView.animate(withDuration: 0.2, delay: 0.0, options: .curveEaseIn, animations: {[weak self]  _ in
+            self?.backgroundColor = UIColor.black.withAlphaComponent(0.3)
             }, completion: { _ in
         })
         
     }
     
     func hide() {
-        UIView.animateWithDuration(0.2, delay: 0.1, options: .CurveEaseOut, animations: {[weak self]  _ in
-            self?.backgroundColor = UIColor.clearColor()
+        UIView.animate(withDuration: 0.2, delay: 0.1, options: .curveEaseOut, animations: {[weak self]  _ in
+            self?.backgroundColor = UIColor.clear
             }, completion: {[weak self]  _ in
                 self?.removeFromSuperview()
             })
@@ -301,8 +301,8 @@ class SpreadView: UIView {
             self.addSubview(addNodeButton[i])
             self.addSubview(subNodeButton[i])
             if i != 0 {
-                addNodeButton[i].hidden = true
-                subNodeButton[i].hidden = true
+                addNodeButton[i].isHidden = true
+                subNodeButton[i].isHidden = true
             }
         }
         
@@ -312,7 +312,7 @@ class SpreadView: UIView {
 
 extension SpreadView: UIGestureRecognizerDelegate {
     
-    func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldReceiveTouch touch: UITouch) -> Bool {
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
         
         if touch.view != self {
             return false

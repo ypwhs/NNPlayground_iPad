@@ -350,6 +350,7 @@
 					A19CD73C1CC89D5300E8CDF9 = {
 						CreatedOnToolsVersion = 7.3;
 						DevelopmentTeam = W26WBSVK66;
+						LastSwiftMigration = 0800;
 					};
 					A19CD7551CC89D5300E8CDF9 = {
 						CreatedOnToolsVersion = 7.3;
@@ -605,6 +606,7 @@
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "NNPlayground/NNPlayground-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 2;
 			};
 			name = Debug;
@@ -627,6 +629,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "NNPlayground/NNPlayground-Bridging-Header.h";
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 2;
 			};
 			name = Release;

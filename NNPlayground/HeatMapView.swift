@@ -19,14 +19,14 @@ class HeatMapView: UIView {
     var dataLayer = CALayer()
     
     func initLayer(){
-        backgroundLayer.frame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)
-        self.layer.insertSublayer(backgroundLayer, atIndex: 0)
-        dataLayer.frame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)
-        self.layer.insertSublayer(dataLayer, atIndex: 1)
+        backgroundLayer.frame = CGRect(x: 0, y: 0, width: self.frame.size.width, height: self.frame.size.height)
+        self.layer.insertSublayer(backgroundLayer, at: 0)
+        dataLayer.frame = CGRect(x: 0, y: 0, width: self.frame.size.width, height: self.frame.size.height)
+        self.layer.insertSublayer(dataLayer, at: 1)
     }
     
-    func setBackground(image:UIImage){
-        backgroundLayer.contents = image.CGImage
+    func setBackground(_ image:UIImage){
+        backgroundLayer.contents = image.cgImage
         self.setNeedsDisplay()
     }
     
@@ -35,7 +35,7 @@ class HeatMapView: UIView {
     var testx:[[Double]] = []
     var testy:[Double] = []
     
-    func setData(x1:UnsafeMutablePointer<Double>, x2:UnsafeMutablePointer<Double>, y:UnsafeMutablePointer<Double>, size:Int){
+    func setData(_ x1:UnsafeMutablePointer<Double>, x2:UnsafeMutablePointer<Double>, y:UnsafeMutablePointer<Double>, size:Int){
         self.trainx = []
         self.trainy = []
         for i in 0..<size{
@@ -52,18 +52,18 @@ class HeatMapView: UIView {
             }
             //先添加白底圆，再添加颜色圆
             var pathLayer = CAShapeLayer()
-            var path = UIBezierPath(ovalInRect: CGRect(x: Double(halfWidth * trainx[i][0] + halfWidth)-1, y: Double(halfHeight - halfHeight * trainx[i][1])-1, width: 7.0, height: 7.0))  //减1是为了圆心和半径5的圆匹配
-            pathLayer.path = path.CGPath
-            pathLayer.fillColor = white.CGColor
+            var path = UIBezierPath(ovalIn: CGRect(x: Double(halfWidth * trainx[i][0] + halfWidth)-1, y: Double(halfHeight - halfHeight * trainx[i][1])-1, width: 7.0, height: 7.0))  //减1是为了圆心和半径5的圆匹配
+            pathLayer.path = path.cgPath
+            pathLayer.fillColor = white.cgColor
             dataLayer.addSublayer(pathLayer)
             
             pathLayer = CAShapeLayer()
-            path = UIBezierPath(ovalInRect: CGRect(x: Double(halfWidth * trainx[i][0] + halfWidth), y: Double(halfHeight - halfHeight * trainx[i][1]), width: 5.0, height: 5.0))
-            pathLayer.path = path.CGPath
+            path = UIBezierPath(ovalIn: CGRect(x: Double(halfWidth * trainx[i][0] + halfWidth), y: Double(halfHeight - halfHeight * trainx[i][1]), width: 5.0, height: 5.0))
+            pathLayer.path = path.cgPath
             if trainy[i] > 0{
-                pathLayer.fillColor = blue.CGColor
+                pathLayer.fillColor = blue.cgColor
             }else{
-                pathLayer.fillColor = orange.CGColor
+                pathLayer.fillColor = orange.cgColor
             }
             dataLayer.addSublayer(pathLayer)
             
@@ -71,7 +71,7 @@ class HeatMapView: UIView {
         self.setNeedsDisplay()
     }
     
-    func setTestData(x1:UnsafeMutablePointer<Double>, x2:UnsafeMutablePointer<Double>, y:UnsafeMutablePointer<Double>, size:Int){
+    func setTestData(_ x1:UnsafeMutablePointer<Double>, x2:UnsafeMutablePointer<Double>, y:UnsafeMutablePointer<Double>, size:Int){
         self.testx = []
         self.testy = []
         for i in 0..<size{
@@ -87,18 +87,18 @@ class HeatMapView: UIView {
             }
             //先添加黑底圆，再添加颜色圆
             var pathLayer = CAShapeLayer()
-            var path = UIBezierPath(ovalInRect: CGRect(x: Double(halfWidth * testx[i][0] + halfWidth)-1, y: Double(halfHeight - halfHeight * testx[i][1])-1, width: 7.0, height: 7.0))  //减1是为了圆心和半径5的圆匹配
-            pathLayer.path = path.CGPath
-            pathLayer.fillColor = black.CGColor
+            var path = UIBezierPath(ovalIn: CGRect(x: Double(halfWidth * testx[i][0] + halfWidth)-1, y: Double(halfHeight - halfHeight * testx[i][1])-1, width: 7.0, height: 7.0))  //减1是为了圆心和半径5的圆匹配
+            pathLayer.path = path.cgPath
+            pathLayer.fillColor = black.cgColor
             dataLayer.addSublayer(pathLayer)
             
             pathLayer = CAShapeLayer()
-            path = UIBezierPath(ovalInRect: CGRect(x: Double(halfWidth * testx[i][0] + halfWidth), y: Double(halfHeight - halfHeight * testx[i][1]), width: 5.0, height: 5.0))
-            pathLayer.path = path.CGPath
+            path = UIBezierPath(ovalIn: CGRect(x: Double(halfWidth * testx[i][0] + halfWidth), y: Double(halfHeight - halfHeight * testx[i][1]), width: 5.0, height: 5.0))
+            pathLayer.path = path.cgPath
             if testy[i] > 0{
-                pathLayer.fillColor = blue.CGColor
+                pathLayer.fillColor = blue.cgColor
             }else{
-                pathLayer.fillColor = orange.CGColor
+                pathLayer.fillColor = orange.cgColor
             }
             dataLayer.addSublayer(pathLayer)
         }
