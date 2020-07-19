@@ -49,7 +49,7 @@ class DropDownView: UIView {
         
         containerView.alpha = 1
         
-        UIView.animate(withDuration: Double(labelName.count) * 0.02, delay: 0.0, options: .transitionCurlUp, animations: {[weak self]  _ in
+        UIView.animate(withDuration: Double(labelName.count) * 0.02, delay: 0.0, options: .transitionCurlUp, animations: {[weak self] in
             if let strongSelf = self {
                 if (strongSelf.dropDownButton) != nil {
                     strongSelf.tableView.frame = CGRect(x: (strongSelf.dropDownButton?.frame.minX)!, y: (strongSelf.dropDownButton?.frame.maxY)!, width: (strongSelf.dropDownButton?.frame.width)!, height: strongSelf.totalHeight)
@@ -58,13 +58,12 @@ class DropDownView: UIView {
             
             self?.layoutIfNeeded()
             
-            }, completion: { _ in
-        })
+            }, completion: nil)
     }
     
-    func hide() {
+    @objc func hide() {
         
-        UIView.animate(withDuration: Double(labelName.count) * 0.02, delay: 0.0, options: .transitionCurlDown, animations: {[weak self]  _ in
+        UIView.animate(withDuration: Double(labelName.count) * 0.02, delay: 0.0, options: .transitionCurlDown, animations: {[weak self] in
             
             if let strongSelf = self {
                 if (strongSelf.dropDownButton) != nil {
@@ -112,8 +111,8 @@ class DropDownView: UIView {
         
         // layout for containerView
         
-        let containerViewConstraintsH = NSLayoutConstraint.constraints(withVisualFormat: "H:|[containerView]|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: viewsDictionary)
-        let containerViewConstraintsV = NSLayoutConstraint.constraints(withVisualFormat: "V:|[containerView]|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: viewsDictionary)
+        let containerViewConstraintsH = NSLayoutConstraint.constraints(withVisualFormat: "H:|[containerView]|", options: NSLayoutConstraint.FormatOptions(rawValue: 0), metrics: nil, views: viewsDictionary)
+        let containerViewConstraintsV = NSLayoutConstraint.constraints(withVisualFormat: "V:|[containerView]|", options: NSLayoutConstraint.FormatOptions(rawValue: 0), metrics: nil, views: viewsDictionary)
         
         NSLayoutConstraint.activate(containerViewConstraintsH)
         NSLayoutConstraint.activate(containerViewConstraintsV)

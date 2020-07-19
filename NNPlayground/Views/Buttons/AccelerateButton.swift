@@ -11,7 +11,7 @@ import UIKit
 @IBDesignable
 class AccelerateButton: UIButton {
     
-    let π:CGFloat = CGFloat(M_PI)
+    let π:CGFloat = .pi
     
     @IBInspectable var fillColor: UIColor = UIColor(red: 0x18/0xFF, green: 0x3D/0xFF, blue: 0x4E/0xFF, alpha: 1)
     @IBInspectable var isEquilateralTriangle: Bool = true{

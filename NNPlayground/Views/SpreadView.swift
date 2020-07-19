@@ -102,7 +102,7 @@ class SpreadView: UIView {
     
     // MARK: - AddNode
     var addNode: ((_ layer: Int, _ isAdd: Bool) -> Void)?
-    func addNodeAction(_ sender:AddButton) {
+    @objc func addNodeAction(_ sender:AddButton) {
         var num = 1
         for i in addNodeButton {
             if i == sender {
@@ -111,7 +111,7 @@ class SpreadView: UIView {
             num += 1
         }
     }
-    func subNodeAction(_ sender:AddButton) {
+    @objc func subNodeAction(_ sender:AddButton) {
         var num = 1
         for i in subNodeButton {
             if i == sender {
@@ -157,7 +157,7 @@ class SpreadView: UIView {
         let view = DropDownView()
         view.labelName = ["0.00001","0.0001","0.001","0.003","0.01","0.03","0.1","0.3","1","3","10"]
         view.showSelectedLabel = {(name: String, num: Int) in
-            self.learningRateButton.setTitle(name, for: UIControlState())
+            self.learningRateButton.setTitle(name, for: UIControl.State())
             view.hide()
             self.setLearningRate?(num)
         }
@@ -178,7 +178,7 @@ class SpreadView: UIView {
         let view = DropDownView()
         view.labelName = ["ReLU","Tanh","Sigmoid","Linear"]
         view.showSelectedLabel = {(name: String, num: Int) in
-            self.activationButton.setTitle(name, for: UIControlState())
+            self.activationButton.setTitle(name, for: UIControl.State())
             view.hide()
             self.setActivation?(num)
         }
@@ -199,7 +199,7 @@ class SpreadView: UIView {
         let view = DropDownView()
         view.labelName = ["None","L1","L2"]
         view.showSelectedLabel = {(name: String, num: Int) in
-            self.regularizationButton.setTitle(name, for: UIControlState())
+            self.regularizationButton.setTitle(name, for: UIControl.State())
             view.hide()
             self.setRegularization?(num)
         }
@@ -220,7 +220,7 @@ class SpreadView: UIView {
         let view = DropDownView()
         view.labelName = ["0","0.001","0.003","0.01","0.03","0.1","0.3","1","3","10"]
         view.showSelectedLabel = {(name: String, num: Int) in
-            self.regularizationRateButton.setTitle(name, for: UIControlState())
+            self.regularizationRateButton.setTitle(name, for: UIControl.State())
             view.hide()
             self.setRegularizationRate?(num)
         }
@@ -241,7 +241,7 @@ class SpreadView: UIView {
         let view = DropDownView()
         view.labelName = ["Classification","Regression"]
         view.showSelectedLabel = {(name: String, num: Int) in
-            self.problemTypeButton.setTitle(name, for: UIControlState())
+            self.problemTypeButton.setTitle(name, for: UIControl.State())
             view.hide()
             self.setProblemType?(num)
         }
@@ -262,15 +262,13 @@ class SpreadView: UIView {
         
         layoutIfNeeded()
         
-        UIView.animate(withDuration: 0.2, delay: 0.0, options: .curveEaseIn, animations: {[weak self]  _ in
-            self?.backgroundColor = UIColor.black.withAlphaComponent(0.3)
-            }, completion: { _ in
-        })
-        
+        UIView.animate(withDuration: 0.2, delay: 0, options: .curveEaseIn, animations: { [weak self] in
+        self?.backgroundColor = UIColor.black.withAlphaComponent(0.3)
+        }, completion: nil)
     }
     
-    func hide() {
-        UIView.animate(withDuration: 0.2, delay: 0.1, options: .curveEaseOut, animations: {[weak self]  _ in
+    @objc func hide() {
+        UIView.animate(withDuration: 0.2, delay: 0.1, options: .curveEaseOut, animations: {[weak self] in
             self?.backgroundColor = UIColor.clear
             }, completion: {[weak self]  _ in
                 self?.removeFromSuperview()

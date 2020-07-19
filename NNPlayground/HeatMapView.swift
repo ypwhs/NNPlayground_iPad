@@ -15,7 +15,7 @@ class HeatMapView: UIView {
         initLayer()
     }
     
-    var backgroundLayer = CALayer()
+    @objc var backgroundLayer = CALayer()
     var dataLayer = CALayer()
     
     func initLayer(){
@@ -25,7 +25,7 @@ class HeatMapView: UIView {
         self.layer.insertSublayer(dataLayer, at: 1)
     }
     
-    func setBackground(_ image:UIImage){
+    @objc func setBackground(_ image:UIImage){
         backgroundLayer.contents = image.cgImage
         self.setNeedsDisplay()
     }
@@ -35,7 +35,7 @@ class HeatMapView: UIView {
     var testx:[[Double]] = []
     var testy:[Double] = []
     
-    func setData(_ x1:UnsafeMutablePointer<Double>, x2:UnsafeMutablePointer<Double>, y:UnsafeMutablePointer<Double>, size:Int){
+    @objc func setData(_ x1:UnsafeMutablePointer<Double>, x2:UnsafeMutablePointer<Double>, y:UnsafeMutablePointer<Double>, size:Int){
         self.trainx = []
         self.trainy = []
         for i in 0..<size{
@@ -71,7 +71,7 @@ class HeatMapView: UIView {
         self.setNeedsDisplay()
     }
     
-    func setTestData(_ x1:UnsafeMutablePointer<Double>, x2:UnsafeMutablePointer<Double>, y:UnsafeMutablePointer<Double>, size:Int){
+    @objc func setTestData(_ x1:UnsafeMutablePointer<Double>, x2:UnsafeMutablePointer<Double>, y:UnsafeMutablePointer<Double>, size:Int){
         self.testx = []
         self.testy = []
         for i in 0..<size{

@@ -118,7 +118,7 @@ bool discretize = false;
     
     double tmp1 = trainLoss, tmp2 = testLoss;
     [self ui:^{
-        [_lossView addLoss:tmp1 test:tmp2];
+        [self->_lossView addLoss:tmp1 test:tmp2];
     }];
     
     [networkLock unlock];
@@ -323,7 +323,7 @@ double lastNoise = 0;
     [networkLock lock];
     [networkLock unlock];
     [self ui:^{
-        [_lossView clearData];
+        [self->_lossView clearData];
     }];
     [self resetNetwork];
 }
@@ -345,7 +345,7 @@ UIImage * image;
     
     [self ui:^{
         //更新大图
-        [_heatMap.backgroundLayer setContents:(id)(*network->network[layers-1])[0]->getImage().CGImage];
+        [self->_heatMap.backgroundLayer setContents:(id)(*network->network[layers-1])[0]->getImage().CGImage];
         
         //更新小图
         for(int i = 0; i < layers - 1; i++){
@@ -543,7 +543,7 @@ double trainLoss = 0, testLoss = 0;
     
     double tmp1 = trainLoss, tmp2 = testLoss;
     [self ui:^{
-        [_lossView addLoss:tmp1 test:tmp2];
+        [self->_lossView addLoss:tmp1 test:tmp2];
     }];
     
     [networkLock unlock];
@@ -562,14 +562,14 @@ double trainLoss = 0, testLoss = 0;
 
 - (void)updateLabel{
     [self ui:^{
-        [_outputLabel setText:[NSString stringWithFormat:@"训练次数：%d", epoch]];
-        [_trainLossLabel setText:[NSString stringWithFormat:@"训练误差：%.5f", trainLoss]];
-        [_testLossLabel setText:[NSString stringWithFormat:@"测试误差：%.5f", testLoss]];
-        [_fpsLabel setText:[NSString stringWithFormat:@"fps：%d", speed]];
+        [self->_outputLabel setText:[NSString stringWithFormat:@"训练次数：%d", epoch]];
+        [self->_trainLossLabel setText:[NSString stringWithFormat:@"训练误差：%.5f", trainLoss]];
+        [self->_testLossLabel setText:[NSString stringWithFormat:@"测试误差：%.5f", testLoss]];
+        [self->_fpsLabel setText:[NSString stringWithFormat:@"fps：%d", speed]];
         if(trainBatch == 1){
-            [_speedLabel setText:@""];
+            [self->_speedLabel setText:@""];
         }else{
-            [_speedLabel setText:@"10x"];
+            [self->_speedLabel setText:@"10x"];
         }
     }];
 }
