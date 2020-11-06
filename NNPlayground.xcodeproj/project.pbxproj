@@ -349,7 +349,7 @@
 				TargetAttributes = {
 					A19CD73C1CC89D5300E8CDF9 = {
 						CreatedOnToolsVersion = 7.3;
-						DevelopmentTeam = ME6769WAA3;
+						DevelopmentTeam = W26WBSVK66;
 						LastSwiftMigration = 0800;
 					};
 					A19CD7551CC89D5300E8CDF9 = {
@@ -617,7 +617,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = ME6769WAA3;
+				DEVELOPMENT_TEAM = W26WBSVK66;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/NNPlayground",
@@ -642,7 +642,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = ME6769WAA3;
+				DEVELOPMENT_TEAM = W26WBSVK66;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/NNPlayground",
